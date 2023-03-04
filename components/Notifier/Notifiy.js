@@ -11,7 +11,7 @@ export default function Notifiy() {
 
 
   return (
-    <div className={`absolute ${notifyType == "warn" ?" bg-[#ffcc00] text-[#7a6603]" : "bg-[#]" } text-sm  shadow-lg text-center p-3  top-2 flex justify-center items-center rounded-[5px]`}>
+    <div className={`absolute ${notifyType == "warn" ?" bg-[#ffcc00] text-[#7a6603]" : "bg-[#28a745] text-[#fff]" } text-sm  shadow-lg text-center p-3  top-2 flex justify-center items-center rounded-[5px]`}>
 
         {notifyMsg}
 

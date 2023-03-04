@@ -110,7 +110,6 @@ export default function Header() {
           //setModalWallet(false);
           //check to see if this account is on the backend if not create an account
           
-          /*
           const user = await fetch(`backend/user/${address}`, { method: 'GET' });
           const userInfo = await user.json();
           if(userInfo) {
@@ -138,7 +137,7 @@ export default function Header() {
             setNotifyType("Success")
             setNotifyMsg(`Welcome ${shortenAddress(address)}`);            
           }
-          */
+          
           
           return;
       }
