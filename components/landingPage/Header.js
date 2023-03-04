@@ -6,6 +6,7 @@ import { ContractAddress, contractABI, chainID } from '../utils/constants';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Notifiy from '../Notifier/Notifiy';
+import Image from 'next/image';
 
 
 
@@ -86,12 +87,13 @@ export default function Header() {
 
       const goto = (link) => {
 
-        if(!address){
+        /*if(!address){
             setNotify(true);
             setNotifyType("warn")
             setNotifyMsg("Please connect your wallet to proceed");
             return ;
           }
+          */
     
     
           router.push(link);
@@ -112,12 +114,12 @@ export default function Header() {
     <div className='relative p-5 md:p-10 flex justify-between items-center text-white text-sm'>
 
         <div className="">
-            <img src="/images/logo.png" alt="logo" />
+            <Image height={30} width={30} src="/images/logo.png" alt="logo" />
         </div>
           
         {/* Right */}
-        <div className={`hidden md:flex md:justify-center md:items-center md:gap-20 ${nav && "flex flex-col justify-center items-start"} `}>
-            
+        <div className={` md:flex md:justify-center transition-all md:items-center md:gap-20 ${nav ? "flex flex-col bg-[#0C0F16] justify-center items-center fixed top-0 left-0 w-screen z-[9999] py-44" : "hidden"} `}>
+               <button onClick={() => setNav(!true)} className='absolute md:hidden top-12 right-16 text-2xl'>&times;</button>
             <div className="flex flex-col items-center md:flex-row md:justify-center gap-10">
                <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto("/mintpage/Mint") }>Create</div>
                <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto("/marketplace/Marketplace")}>marketPlace</div> 
@@ -125,16 +127,14 @@ export default function Header() {
                <Link href="#about"> <div className="hover:text-[#553CDF] cursor-pointer">About Us</div> </Link>
             </div>
 
-            <div className="bg-[#553CDF] rounded-[20px] p-2 cursor-pointer px-7" onClick={ () => connect(provider) }>
+            <button className="bg-[#553CDF] rounded-[20px] md:mt-0 mt-8 p-2 cursor-pointer px-7" onClick={ () => connect(provider) }>
                {address ? shortenAddress(address) : "Connect" } 
-            </div>
+            </button>
 
         </div>
 
-            {
-                !nav ? <div className=' p-1 flex items-center md:hidden border rounded-md border-[#ffffff1a]'> <img src="/images/icons8-menu-rounded-50.png" alt="menu" className='h-6 w-12 ' onClick={() => setNav(true)} />  </div> :
-                    <div className=' p-1 flex items-center md:hidden border rounded-md border-[#ffffff1a]' onClick={() => setNav(!true)}> <img src="/images/icons8-menu-rounded-50.png" alt="menu" className='h-6 w-12' /> </div>
-            }
+          <button className=' p-1 flex items-center md:hidden border rounded-md border-[#ffffff1a]'> <Image height={10} width={10} src="/images/icons8-menu-rounded-50.png" alt="menu" className='h-6 w-12 ' onClick={() => setNav(true)} />  </button>
+            
 
             {  notify &&
                 <Notifiy />

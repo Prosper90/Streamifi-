@@ -250,33 +250,28 @@ export default function Mint() {
             <form action="flex flex-col bg-white" onSubmit={(e) => mintalbum(e)}>
 
                <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Music Names</div>
-                 <input type="text" name='musicNames' className='bg-transparent outline-0 border-0' />
+                 <input type="text" placeholder='Music Names' name='musicNames' className='bg-transparent outline-0 border-0' />
                  <img src="/images/headset.png" alt="" />
                </div>
 
                <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Artist</div>
-                 <input type="text" name='artists' className='bg-transparent outline-0 border-0' />
+                 <input type="text" placeholder='Artist' name='artists' className='bg-transparent outline-0 border-0' />
                  <img src="/images/artist.png" alt="" />
                </div>
 
                <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <div className="">Uris</div>
-                 <input type="text" name='musiuris' className='bg-transparent outline-0 border-0' />
+                 <input type="text" placeholder='Uris' name='musiuris' className='bg-transparent outline-0 border-0' />
                  <img src="/images/uri.png" alt="" />
                </div>
 
                <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <div className="">Image cover</div>
-                 <input type="text" name='imageuri' className='bg-transparent outline-0 border-0' />
+                 <input type="text" placeholder='Image cover' name='imageuri' className='bg-transparent outline-0 border-0' />
                  <img src="/images/image.png" alt="" />
                </div>
 
                <div className=" relative flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <div className="">Price</div>
-                 {inputdataone && <small className='absolute' style={{ fontSize: '9px'}} >{inputdataone}bnb</small> }
-                 <input type="text" className='bg-transparent outline-0 border-0' onChange={(e) => handleChangetwo(e)} />
+                 {/* {inputdataone && <small className='absolute' style={{ fontSize: '9px'}} >{inputdataone}bnb</small> } */}
+                 <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangetwo(e)} />
                  <img src="/images/dollar.png" alt="" />
                </div>
 
@@ -297,33 +292,33 @@ export default function Mint() {
             <form action="flex flex-col gap-3 bg-white" onSubmit={(e) => mintsingle(e)}>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Music Names</div>
-                <input type="text" name='musicName' className='bg-transparent outline-0 border-0' />
+                {/* <div className="">Music Names</div> */}
+                <input type="text" name='musicName' placeholder='Music Names' className='bg-transparent outline-0 border-0' />
                 <img src="/images/headset.png" alt="" />
               </div>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Artist</div>
-                <input type="text" name='artist' className='bg-transparent outline-0 border-0' />
+                {/* <div className="">Artist</div> */}
+                <input type="text" placeholder='Artist' name='artist' className='bg-transparent outline-0 border-0' />
                 <img src="/images/artist.png" alt="" />
               </div>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Uris</div>
-                <input type="text" name='musiuri' className='bg-transparent outline-0 border-0' />
+                {/* <div className="">Uris</div> */}
+                <input type="text" placeholder='Uris' name='musiuri' className='bg-transparent outline-0 border-0' />
                 <img src="/images/uri.png" alt="" />
               </div>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Image cover</div>
-                <input type="text" name='imageuri' className='bg-transparent outline-0 border-0' />
+                {/* <div className="">Image cover</div> */}
+                <input type="text" placeholder='Image cover' name='imageuri' className='bg-transparent outline-0 border-0' />
                 <img src="/images/image.png" alt="" />
               </div>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                <div className="">Price</div>
-                {inputdatatwo && <small className='absolute' style={{ fontSize: '9px'}}>{inputdatatwo}bnb</small>}
-                <input type="text" className='bg-transparent outline-0 border-0' onChange={(e) => handleChangeone(e)} />
+                {/* <div className="">Price</div> */}
+                {/* {inputdatatwo && <small className='absolute' style={{ fontSize: '9px'}}>{inputdatatwo}bnb</small>} */}
+                <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangeone(e)} />
                 <img src="/images/dollar.png" alt="" />
               </div>
 
