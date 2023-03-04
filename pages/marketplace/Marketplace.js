@@ -47,9 +47,13 @@ useEffect(() => {
 
           <div className="flex justify-center gap-3">
            { albums ?
-              albums.map((data, index) => (
-                <AlbumMarket data={data} key={index} />
-              ))
+              albums.map((data, index) => {
+                if(data[0].sale) {
+                  return (
+                    <AlbumMarket data={data} key={index} />
+                   )
+                }
+             })
              : 
              <div className="">Empty Market</div>
            }
@@ -66,9 +70,13 @@ useEffect(() => {
          
           
           { single ?
-            single.map((data, index) => (
-              <SingleMarket data={data} key={index} />
-            ))
+            single.map((data, index) => {
+             if(data.sale) {
+              return (
+                <SingleMarket data={data} key={index} />
+              )
+             }
+            })
             :
             <div className="">Empty market</div>
            }

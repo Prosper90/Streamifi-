@@ -44,10 +44,6 @@ export default function Header() {
 
         //check for correct chain
         const correctChain = async (id) => {
-        
-          //await ethereum.request({ method: "eth_requestAccounts" });
-          const chainId = await props.provider.getNetwork();
-          if (chainId.chainId !== chainID) {
 
             try {
               //switch chain
@@ -85,8 +81,7 @@ export default function Header() {
                 return;
               }
             }
-          } 
-  
+          
     };
 
     //connect

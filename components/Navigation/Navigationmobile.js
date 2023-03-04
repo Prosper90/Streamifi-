@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Link from 'next/link';
+import Contexts from '../context/contextclass';
 
 export default function Navigationmobile() {
+
+    //context
+    const {pages, setPages, address} = useContext(Contexts);
+
   return (
     <div className='flex justify-around w-full text-white'>
 

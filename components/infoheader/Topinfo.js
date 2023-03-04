@@ -95,7 +95,7 @@ export default function Topinfo() {
                       Object.keys(chainlinks).map((data, index) => {
                         if(chainlinks[data] !== selectedChain) {
                           return (
-                            <img src={chainlinks[data]} alt="chain" className='cursor-pointer' onClick={() => change(chainlinks[data], data) } key={index} />                             
+                            <img src={chainlinks[data]} alt="chain" className='cursor-pointer mb-2' onClick={() => change(chainlinks[data], data) } key={index} />                             
                           )
                         }
                       })

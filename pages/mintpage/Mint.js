@@ -270,8 +270,8 @@ export default function Mint() {
                </div>
 
                <div className=" relative flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 {/* {inputdataone && <small className='absolute' style={{ fontSize: '9px'}} >{inputdataone}bnb</small> } */}
-                 <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangetwo(e)} />
+                  {inputdataone && <small className='absolute bottom-6'  >{inputdataone} BNB</small> } 
+                 <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangeone(e)} />
                  <img src="/images/dollar.png" alt="" />
                </div>
 
@@ -315,10 +315,9 @@ export default function Mint() {
                 <img src="/images/image.png" alt="" />
               </div>
 
-              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                {/* <div className="">Price</div> */}
-                {/* {inputdatatwo && <small className='absolute' style={{ fontSize: '9px'}}>{inputdatatwo}bnb</small>} */}
-                <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangeone(e)} />
+              <div className="relative flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">  
+                {inputdatatwo && <small className='absolute bottom-6' >{inputdatatwo} BNB</small>} 
+                <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangetwo(e)} />
                 <img src="/images/dollar.png" alt="" />
               </div>
 

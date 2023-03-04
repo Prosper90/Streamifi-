@@ -305,7 +305,7 @@ export default function Landingpage() {
       </div>
 
 
-      <Footer />
+     {/* <Footer />*/}
 
     </div>
   )
