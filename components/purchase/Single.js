@@ -117,7 +117,7 @@ export default function Single() {
               setNotify(true);
               setNotifyType("success");
               setNotifyMsg(`${address} bought an Album`);
-  
+              setOwns(true);
         }
   
   

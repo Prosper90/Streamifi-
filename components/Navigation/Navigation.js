@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function Navigation() {
 
     //context
-    const {pages, setPages} = useContext(Contexts);
+    const {pages, setPages, address} = useContext(Contexts);
     const router = useRouter();
 
     //Links
@@ -95,7 +95,7 @@ export default function Navigation() {
 
           <div className="flex flex-col gap-[26px] font-medium" >
 
-               <Link href="/dashboard/Dashboard">
+               <Link href={`/dashboard/${address}`}>
                   <div className="flex gap-3">
                     <div className="icon">
                       <svg

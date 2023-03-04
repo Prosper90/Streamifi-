@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Contexts from '../context/contextclass';
 import { shortenAddress } from '../utils/trauncate';
 import { ethers } from 'ethers';
@@ -11,9 +11,23 @@ export default function Topinfo() {
       setProvider, 
       address,
       tokenbalance,
-      setTokenBalance
+      setTokenBalance,
+      setChain
     } = useContext(Contexts);
+    
+    let chainlinks = {
+      bsc: "/images/binance.svg",
+      polygon: "/images/polygon.svg",
+      arbitrum: "/images/arbitrum.svg"
+    }
 
+  const [selectedChain, setSelectedChain] = useState("/images/binance.svg");
+  const [choose, setChoose] = useState(false);
+
+  const change = (data, id) => {
+    setSelectedChain(data);
+    setChoose(false);
+  }
 
       //get balance
   const getBalance = async () => {
@@ -27,8 +41,11 @@ export default function Topinfo() {
   };
 
   useEffect(() => {
-    getBalance();
-  }, [])
+    if(!tokenbalance) {
+      getBalance();
+    }
+
+  }, [choose])
   
 
   return (
@@ -67,9 +84,26 @@ export default function Topinfo() {
                 {/* Balance */}
 
                 {/* chains */}
-                <div className="bg-[#000] p-1 rounded-[100%]">
-                  <img src="/images/binance.svg" alt="chain" />
+                <div className={`relative flex flex-col justify-center items-center cursor-pointer ${choose && "bg-[#000] w-[40px]"}`}  >
+
+                  <div className="bg-[#000] p-1 rounded-[100%]" onClick={() => setChoose(true)}>
+                    <img src={selectedChain} alt="chain" />
+                  </div>
+
+                  <div className={` ${!choose ? "hidden" : "absolute z-10 w-[40px] h-[70px] top-7 bg-[#000] flex flex-col justify-center items-center pt-2 px-[5px]" }  `} >
+                    {
+                      Object.keys(chainlinks).map((data, index) => {
+                        if(chainlinks[data] !== selectedChain) {
+                          return (
+                            <img src={chainlinks[data]} alt="chain" className='cursor-pointer' onClick={() => change(chainlinks[data], data) } key={index} />                             
+                          )
+                        }
+                      })
+                    }
+                  </div>
+
                 </div>
+
                 {/* chains */}
             </div>
 

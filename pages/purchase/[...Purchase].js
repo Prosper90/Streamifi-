@@ -6,14 +6,11 @@ import { ethers } from 'ethers';
 
 export default function Purchase() {
   
-  const [bought, setBought] = useState(true);
   
       //context and states
       const { 
         provider, 
-        setProvider, 
         address, 
-        setAddress, 
         notify, 
         setNotify, 
         notifyType,
@@ -22,12 +19,6 @@ export default function Purchase() {
         setNotifyMsg,
         typeSelected,
         setTypeSelected,
-        selectedSingle,
-        setSelectedSingle,
-        singleList,
-        setSingleList,
-        selectedAlbum,
-        setSelectedAlbum
       } = useContext(Contexts);
 
 
@@ -40,8 +31,13 @@ export default function Purchase() {
 
   return (
     <>
-
-      <Single />
+      {
+        typeSelected == "Album" ?
+        <Album />
+        :
+        <Single />
+      }
+      
 
     </>
   )

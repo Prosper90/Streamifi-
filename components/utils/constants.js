@@ -12,6 +12,10 @@ export const contractABI = abi;
 
 
 
-export const chainID = 97;
+export const chainBSC = 97;
+
+export const chainPolygon = 137;
+
+export const chainArbitrum = 42161;
 
 

@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 
 export default function Album() {
   
-  const [bought, setBought] = useState(true);
       //context and states
       const { 
         provider, 
@@ -118,7 +117,7 @@ export default function Album() {
             setNotify(true);
             setNotifyType("success");
             setNotifyMsg(`${address} bought an Album`);
-
+            setOwns(true);
       }
 
 

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import Contexts from '../context/contextclass';
 import { ethers } from 'ethers';
 import { shortenAddress } from '../utils/trauncate';
-import { ContractAddress, contractABI, chainID } from '../utils/constants';
+import { ContractAddress, contractABI, chainBSC, chainPolygon, chainArbitrum } from '../utils/constants';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Notifiy from '../Notifier/Notifiy';
@@ -37,8 +37,68 @@ export default function Header() {
 
     const [nav, setNav] = useState(false);
 
+
+
+
+
+        //check for correct chain
+        const correctChain = async (id) => {
+        
+          //await ethereum.request({ method: "eth_requestAccounts" });
+          const chainId = await props.provider.getNetwork();
+          if (chainId.chainId !== chainID) {
+
+            try {
+              //switch chain
+              await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [
+                  {
+                    chainId: `0x${Number(id).toString(16)}`,
+                  }],
+              });
+              return;
+            } catch (error) {
+              if (error === 4902) {
+                //add the token or currency to metamask
+                await window.ethereum.request({
+                  method: "wallet_addEthereumChain",
+                  params: [
+                    {
+                      chainId: `0x${Number(id).toString(16)}`,
+                      rpcUrls: [
+                        " https://data-seed-prebsc-1-s1.binance.org:8545",
+                      ],
+                      chainName: "BSC testnet",
+                      nativeCurrency: {
+                        name: "BSC",
+                        symbol: "BNB",
+                        decimals: 18,
+                      },
+                      blockExplorerUrls: [
+                        "https://explorer.binance.org/smart-testnet",
+                      ],
+                    },
+                  ],
+                });
+                return;
+              }
+            }
+          } 
+  
+    };
+
     //connect
     const connect = async (providerarg) => {
+
+        if(chain == chainBSC) {
+          correctChain(chainBSC);
+        } else if(chain == chainPolygon) {
+          correctChain(chainPolygon);
+        } else if(chain == chainArbitrum) {
+          correctChain(chainArbitrum);
+        }
+
         if(window.ethereum) {
           await providerarg?.send("eth_requestAccounts", []);
         }
@@ -54,6 +114,7 @@ export default function Header() {
           //setModalWallet(false);
           //check to see if this account is on the backend if not create an account
           
+          /*
           const user = await fetch(`backend/user/${address}`, { method: 'GET' });
           const userInfo = await user.json();
           if(userInfo) {
@@ -76,7 +137,12 @@ export default function Header() {
             const checkSuccess = await createUser.json();
             await checkSuccess.wait();
             //show new user notification and activate tutorial
+
+            setNotify(true);
+            setNotifyType("Success")
+            setNotifyMsg(`Welcome ${shortenAddress(address)}`);            
           }
+          */
           
           return;
       }
@@ -104,6 +170,10 @@ export default function Header() {
         if(address) {
             connect(provider);
         }
+        
+        if(chain) {
+          correctChain(chain);
+        }
       }, [])
       
 
@@ -121,7 +191,7 @@ export default function Header() {
             <div className="flex flex-col items-center md:flex-row md:justify-center gap-10">
                <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto("/mintpage/Mint") }>Create</div>
                <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto("/marketplace/Marketplace")}>marketPlace</div> 
-               <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto("/dashboard/Dashboard")}>Dashboard</div>
+               <div className="hover:text-[#553CDF] cursor-pointer" onClick={() => goto(`/dashboard/${address}`)}>Dashboard</div>
                <Link href="#about"> <div className="hover:text-[#553CDF] cursor-pointer">About Us</div> </Link>
             </div>
 
