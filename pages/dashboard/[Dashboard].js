@@ -282,7 +282,7 @@ export default function Dashboard({user}) {
 
         <div className="font-meduim text-lg mb-5">Recent Transactions</div>
 
-          <div class="bg-[#18181C] rounded-[5px] shadow-sm overflow-x-auto">
+          <div className="bg-[#18181C]  pb-10 p-4 rounded-[5px] shadow-sm overflow-x-auto">
 
             { user.Transactions == 0
 
@@ -294,38 +294,49 @@ export default function Dashboard({user}) {
              :
 
 
-              <table class="divide-y divide-gray-700 w-full text-sm text-left text-gray-500">
-                        {/* Table start */}
-                    <thead class=" dark:bg-gray-700 text-xs text-gray-700 px-5 fonts uppercase">
+ 
+              {/* Table start */}
+              <table className="divide-y divide-gray-700 w-full text-sm text-left text-gray-500">
+                    <thead className="  px-5 fonts uppercase">
                         <tr>
-                            <th scope="col" class="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
+                            <th scope="col" className="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
                                 Event
                             </th>
-                            <th scope="col" class="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
+                            <th scope="col" className="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
                                 Type
                             </th>
-                            <th scope="col" class="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
+                            <th scope="col" className="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
                                 Price
                             </th>
-                            <th scope="col" class="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
+                            <th scope="col" className="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
                                 Date
                             </th>
-                            <th scope="col" class="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
+                            <th scope="col" className="text-xs font-medium tracking-wider text-left py-4 px-5 fonts">
                                 Buyer
                             </th>                            
                         </tr>
                     </thead>
-                    <tbody class="text-xs">
-                      {user.Transactions.map((data, index) => {
-                        <tr class="hover:bg-gray-900">
-                            <td class="py-4 px-6 text-sm font-medium">{data.event}</td>
-                            <td class="py-4 px-6 text-sm font-medium"> {data.musicType}</td>
-                            <td class="py-4 px-6 text-sm font-medium"> {data.Price} ETH</td>
-                            <td class="py-4 px-6 text-sm font-medium">11/12/2023</td>
-                            <td class="py-4 px-6 text-sm font-medium">{data.otherparty}</td>                            
+                            <td className="py-4 px-6 text-sm font-medium">Buy</td>
+                            <td className="py-4 px-6 text-sm font-medium">Album</td>
+                            <td className="py-4 px-6 text-sm font-medium">5 ETH</td>
+                            <td className="py-4 px-6 text-sm font-medium">11/12/2023</td>
+                            <td className="py-4 px-6 text-sm font-medium">0X2334ddlsxcw....</td>                            
                         </tr>
-                      })}
-                    </tbody>
+                        <tr className="hover:bg-gray-900 border-b border-gray-700">
+                            <td className="py-4 px-6 text-sm font-medium ">Buy</td>
+                            <td className="py-4 px-6 text-sm font-medium">Album</td>
+                            <td className="py-4 px-6 text-sm font-medium">5 ETH</td>
+                            <td className="py-4 px-6 text-sm font-medium">11/12/2023</td>
+                            <td className="py-4 px-6 text-sm font-medium">0X2334ddlsxcw....</td>                            
+                        </tr>
+                        <tr className="hover:bg-gray-900 border-b border-gray-700">
+                            <td className="py-4 px-6 text-sm font-medium ">Buy</td>
+                            <td className="py-4 px-6 text-sm font-medium">Album</td>
+                            <td className="py-4 px-6 text-sm font-medium">5 ETH</td>
+                            <td className="py-4 px-6 text-sm font-medium">11/12/2023</td>
+                            <td className="py-4 px-6 text-sm font-medium">0X2334ddlsxcw....</td>                            
+                        </tr>
+                   
                         {/* Table end */}
                 </table>
 
