@@ -165,7 +165,7 @@ export default function Layout({children}) {
 
         {/* Main page Right */}
         <div className="col-span-full row-span-full sm:col-span-4 md:col-span-4 h-full overflow-y-scroll overflow-x-hidden">
-          <Topinfo />
+          {/* <Topinfo /> */}
           {children}
         </div>
 
