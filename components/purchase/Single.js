@@ -148,7 +148,7 @@ export default function Single() {
         <div className={`text-white w-full flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`} >
           {/* Top */}
           <div className="flex justify-center items-center rounded-[10px] p-2 bg-[#D9D9D9] w-[150px]">
-              <img src={selectedSingle.imguri} alt="sample" className='w-[70%]' />
+              <img src={selectedSingle?.imguri} alt="sample" className='w-[70%]' />
           </div>
 
            {/* Changeable */}
@@ -161,7 +161,7 @@ export default function Single() {
              <div className="pt-5">
 
                 <div className="font-light">
-                  Single by {selectedSingle.artist} 
+                  Single by {selectedSingle?.artist} 
                   on chain sample more details on here
                 </div>
 
@@ -214,7 +214,7 @@ export default function Single() {
 
             <div className="font-medium text-[20px] pt-2 pb-2">Eminem Monster</div>
             <div className="w-[70%]">
-               Single by {selectedSingle.artist} 
+               Single by {selectedSingle?.artist} 
                 on chain sample more details on here
             </div>
 
@@ -223,7 +223,7 @@ export default function Single() {
           <div className="flex bg-[#553CDF] p-3 rounded-[10px] w-[65%]">
             {/* <div className="">{!reselect ? selectedAlbum.artist : reselect.artist}</div> */}
             <div className="pl-1">
-              <div className="font-bold text-md">{selectedSingle.songname}</div>
+              <div className="font-bold text-md">{selectedSingle?.songname}</div>
               <div className="flex flex-col p-1 ">
 
               <div className="font-light text-sm flex justify-between p-1">
@@ -233,7 +233,7 @@ export default function Single() {
 
               <div className="font-light text-sm flex justify-between p-1">
                 <span>Creator</span>
-                <span>{ shortenAddress(selectedSingle.creator) }</span>
+                <span>{ shortenAddress(selectedSingle?.creator) }</span>
               </div>
 
               </div>
@@ -244,13 +244,13 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{selectedSingle.date}</div>
+              <div className="">{selectedSingle?.date}</div>
             </div>
 
             <div className="flex justify-between">
               <div className="">Price:</div>
                <div className="flex justify-center items-center bg-[#553CDF] p-2 rounded-[10px] w-[75px] "> 
-                <span className='pr-1'>{Math.round( (selectedSingle.cost/10 ** 18) * 10 ) / 10} ETH</span>
+                <span className='pr-1'>{Math.round( (selectedSingle?.cost/10 ** 18) * 10 ) / 10} ETH</span>
                 <img src="/images/price.png" alt="price" />
               </div>
             </div>            

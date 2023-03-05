@@ -67,11 +67,14 @@ export default function Dashboard({user}) {
         setNotifyMsg("Asset listed for sale");
   }
 
+
+
   useEffect(() => {
 
     getowned();
-
+    
   }, [])
+  
   
 
   return (

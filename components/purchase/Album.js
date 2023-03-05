@@ -151,7 +151,7 @@ export default function Album() {
         <div className={`text-white flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`} >
           {/* Top */}
           <div className="flex justify-center items-center rounded-[10px] p-2 bg-[#D9D9D9] w-[150px]">
-              <img src={!reselect ? selectedAlbum[0].imguri : reselect.imguri} alt="sample" className='w-[70%]' />
+              <img src={!reselect ? selectedAlbum[0]?.imguri : reselect?.imguri} alt="sample" className='w-[70%]' />
           </div>
 
            {/* Changeable */}
@@ -164,7 +164,7 @@ export default function Album() {
              <div className="pt-5">
 
                 <div className="font-light">
-                  Album by {!reselect ? selectedAlbum[0].artist : reselect.artist}
+                  Album by {!reselect ? selectedAlbum[0]?.artist : reselect?.artist}
                 </div>
 
                 <div className="flex justify-between items-center pt-3 ">
@@ -213,9 +213,9 @@ export default function Album() {
 
           <div className="flex flex-col">
 
-            <div className="font-medium text-[20px] pt-2 pb-2">Eminem Monster</div>
+            <div className="font-medium text-[20px] pt-2 pb-2">{!reselect ? selectedAlbum[0]?.songname : reselect?.songname}</div>
             <div className="w-[70%]">
-              Album by {!reselect ? selectedAlbum[0].artist : reselect.artist}
+              Album by {!reselect ? selectedAlbum[0]?.artist : reselect?.artist}
               this album data is coming from the chain
             </div>
 
@@ -224,7 +224,7 @@ export default function Album() {
           <div className="flex bg-[#553CDF] p-3 rounded-[10px] w-[65%]">
             {/* <div className="">{!reselect ? selectedAlbum.artist : reselect.artist}</div> */}
             <div className="pl-1">
-              <div className="font-bold text-md">{!reselect ? selectedAlbum[0].songname : reselect.songname}</div>
+              <div className="font-bold text-md">{!reselect ? selectedAlbum[0]?.songname : reselect?.songname}</div>
               <div className="flex flex-col p-1 ">
 
               <div className="font-light text-sm flex justify-between p-1">
@@ -234,7 +234,7 @@ export default function Album() {
 
               <div className="font-light text-sm flex justify-between p-1">
                 <span>Creator</span>
-                <span>{ shortenAddress(selectedAlbum[0].creator) }</span>
+                <span>{ shortenAddress(selectedAlbum[0]?.creator) }</span>
               </div>
 
               </div>
@@ -245,13 +245,13 @@ export default function Album() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{!reselect ? selectedAlbum[0].date : reselect.date}</div>
+              <div className="">{!reselect ? selectedAlbum[0]?.date : reselect?.date}</div>
             </div>
 
             <div className="flex justify-between">
               <div className="">Price:</div>
                <div className="flex justify-center items-center bg-[#553CDF] p-2 rounded-[10px] w-[75px] "> 
-                <span className='pr-1'>{!reselect ? Math.round( (selectedAlbum[0].cost/10 ** 18) * 10 ) / 10 : Math.round( (reselect.cost/10 ** 18) * 10 ) / 10 } ETH</span>
+                <span className='pr-1'>{!reselect ? Math.round( (selectedAlbum[0]?.cost/10 ** 18) * 10 ) / 10 : Math.round( (reselect.cost/10 ** 18) * 10 ) / 10 } ETH</span>
                 <img src="/images/price.png" alt="price" />
               </div>
             </div>            
@@ -269,8 +269,9 @@ export default function Album() {
 
             <div 
                 className="flex justify-between p-2 pr-8 rounded-[5px] items-center" 
-                style={{background: `${!reselect && index == 0 ? "rgba(217, 217, 217, 0.11)" : reselect && data.id == reselect.id && "rgba(217, 217, 217, 0.11)" }`}} 
-                onClick={() => setReselect(data)} 
+                style={{background: `${!reselect && index == 0 ? "rgba(217, 217, 217, 0.11)" : reselect && (data.id == reselect?.id) && "rgba(217, 217, 217, 0.11)" }`}} 
+                onClick={() => setReselect(data)}
+                key={index}
                 >
             {/* Left */}
             <div className="flex justify-start items-center gap-4">
