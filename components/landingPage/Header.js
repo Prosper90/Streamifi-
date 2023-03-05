@@ -147,13 +147,12 @@ export default function Header() {
 
       const goto = (link) => {
 
-        /*if(!address){
+        if(!address){
             setNotify(true);
             setNotifyType("warn")
             setNotifyMsg("Please connect your wallet to proceed");
             return ;
           }
-          */
     
     
           router.push(link);
