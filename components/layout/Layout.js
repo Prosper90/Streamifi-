@@ -5,6 +5,7 @@ import Navigationmobile from '../Navigation/Navigationmobile';
 import { useRouter } from 'next/router';
 import Topinfo from '../infoheader/Topinfo';
 import { ethers } from 'ethers';
+import Notifiy from '../Notifier/Notifiy';
 
 
 export default function Layout({children}) {
@@ -165,7 +166,8 @@ export default function Layout({children}) {
 
         {/* Main page Right */}
         <div className="col-span-full row-span-full sm:col-span-4 md:col-span-4 h-full overflow-y-scroll overflow-x-hidden">
-          <Topinfo /> 
+          <Topinfo />
+          {notify && <Notifiy />}
           {children}
         </div>
 

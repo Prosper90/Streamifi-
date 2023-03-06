@@ -185,7 +185,7 @@ export default function Mint() {
 
 
           //update user to creator if they were not
-          if(!userData.creator){
+          if(!userData.creator) {
               //console.log(checkseller);
                   const create = await fetch(`https://streamifibackend.fly.dev/create/${address}`, 
                   {

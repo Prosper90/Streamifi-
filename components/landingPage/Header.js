@@ -132,16 +132,14 @@ export default function Header() {
            });
            
             const checkSuccess = await createUser.json();
-            await checkSuccess.wait();
             //show new user notification and activate tutorial
-
+            
             setNotify(true);
             setNotifyType("Success")
             setNotifyMsg(`Welcome ${shortenAddress(address)}`);            
           }
           
-          
-          return;
+        
       }
 
 
@@ -155,6 +153,8 @@ export default function Header() {
             setNotifyMsg("Please connect your wallet to proceed");
             return ;
           }
+
+          console.log("We on");
     
     
           router.push(link);

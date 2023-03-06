@@ -20,6 +20,7 @@ const [single, setSingle] = useState();
 const getAlbums = async () => {
   const contract = await getContract();
   const data = await contract.getAlbumsmarket();
+  console.log(data);
   setAlbums(data);
 }
 

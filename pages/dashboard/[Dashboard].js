@@ -33,7 +33,8 @@ export default function Dashboard({user}) {
 
   const getowned = async () => {
     const contract = await getContract();
-    const owneddatas = await contract.owns();
+    const owneddatas = await contract.owns(address);
+    console.log(owneddatas);
     setOwned(owneddatas);
   }
 
@@ -160,7 +161,7 @@ export default function Dashboard({user}) {
             <div className="mb-5">Albums Unlisted</div>
           
             {/* Left here scrolls */}
-            <div className="flex flex-col gap-7 overflow-y-auto">
+            <div className="flex flex-col gap-7 overflow-y-auto h-[158px]">
                 
               {/* Items */}
 
@@ -188,7 +189,7 @@ export default function Dashboard({user}) {
                            <span>Price</span>
 
                             <span className="flex justify-center items-center">
-                              <span>{ Math.Round( (data.cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                              <span>{ Math.round( (data.cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                             </span>
 
                         </div>
@@ -281,7 +282,7 @@ export default function Dashboard({user}) {
 
 
          {/* Third layer */}
-        <div className="p-2 text-sm overflow-x-auto">
+        <div className="p-2 text-sm overflow-x-auto mt-20">
 
         <div className="font-meduim text-lg mb-5">Recent Transactions</div>
 
