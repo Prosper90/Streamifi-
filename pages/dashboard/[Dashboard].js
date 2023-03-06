@@ -72,7 +72,7 @@ export default function Dashboard({user}) {
   useEffect(() => {
 
     getowned();
-    
+
   }, [])
   
   
@@ -413,7 +413,7 @@ export async function  getServerSideProps(context) {
   const {params} = context;
   const {address} = params;
 
-  const user = await fetch(`backend/user/${address}`, { method: 'GET' });
+  const user = await fetch(`https://streamifibackend.fly.dev/user/${address}`, { method: 'GET' });
   const userInfo = await user.json();
 
 

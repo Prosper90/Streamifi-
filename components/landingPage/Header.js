@@ -111,12 +111,14 @@ export default function Header() {
           //check to see if this account is on the backend if not create an account
           
           const user = await fetch(`https://streamifibackend.fly.dev/user/${address}`, { method: 'GET' });
+          //console.log(user, "user checking");
           const userInfo = await user.json();
-          if(userInfo) {
+          console.log(userInfo);
+          if(userInfo.users) {
             setUserdata(userData);
           }
           
-          if(!userInfo) {
+          if(userInfo.users == null) {
             //create user 
             //backend route https://streamifibackend.fly.dev/
             const createUser = await fetch(`https://streamifibackend.fly.dev/user`, 
