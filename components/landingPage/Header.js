@@ -110,7 +110,7 @@ export default function Header() {
           //setModalWallet(false);
           //check to see if this account is on the backend if not create an account
           
-          const user = await fetch(`backend/user/${address}`, { method: 'GET' });
+          const user = await fetch(`https://streamifibackend.fly.dev/user/${address}`, { method: 'GET' });
           const userInfo = await user.json();
           if(userInfo) {
             setUserdata(userData);

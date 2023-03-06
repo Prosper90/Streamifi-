@@ -190,7 +190,7 @@ export default function Mint() {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json'
                       },
-                      body: JSON.stringify({ address: address})
+                      body: JSON.stringify({address: address})
                   }
               );
               await create.json();
