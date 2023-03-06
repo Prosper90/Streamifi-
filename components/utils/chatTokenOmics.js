@@ -1,8 +1,11 @@
 import React from "react";
+import Image from "next/image";
 
 
 export function ChatTokenOmonics() {
   return (
-    <h1>hello</h1>
+    <div>
+       <img src="/images/tokenomicsill.png" alt="tokenomics" className="w-full h-auto" />
+    </div>
   );
 }

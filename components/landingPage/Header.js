@@ -115,7 +115,7 @@ export default function Header() {
           const userInfo = await user.json();
           console.log(userInfo);
           if(userInfo.users) {
-            setUserdata(userData);
+            setUserdata(userInfo.users);
           }
           
           if(userInfo.users == null) {

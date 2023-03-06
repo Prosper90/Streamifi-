@@ -33,7 +33,7 @@ export default function Dashboard({user}) {
 
   const getowned = async () => {
     const contract = await getContract();
-    const owneddatas = await contract.ownedSongs();
+    const owneddatas = await contract.owns();
     setOwned(owneddatas);
   }
 
@@ -164,13 +164,13 @@ export default function Dashboard({user}) {
                 
               {/* Items */}
 
-              { owned.album.length == 0 ?
+              { owned?.album?.length == 0 ?
                <>
                  Empty
                </>
               :
 
-                owned.album.map((data, index) => (
+                owned?.album?.map((data, index) => (
 
                 <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5" key={index}>
                    
@@ -220,7 +220,7 @@ export default function Dashboard({user}) {
             <div className="flex flex-col gap-7 overflow-y-auto">
                 
                 {/* Items */}
-               { owned.single.length == 0
+               { owned?.single?.length == 0
 
                 ?
 
@@ -230,7 +230,7 @@ export default function Dashboard({user}) {
 
                 :
 
-                 owned.single.map((data, index) => (
+                 owned?.single?.map((data, index) => (
 
                   <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5">
                     
@@ -411,10 +411,12 @@ export default function Dashboard({user}) {
 export async function  getServerSideProps(context) {
 
   const {params} = context;
-  const {address} = params;
+  const {Dashboard} = params;
+  console.log(params);
 
-  const user = await fetch(`https://streamifibackend.fly.dev/user/${address}`, { method: 'GET' });
+  const user = await fetch(`https://streamifibackend.fly.dev/user/${Dashboard}`, { method: 'GET' });
   const userInfo = await user.json();
+  console.log(userInfo);
 
 
 

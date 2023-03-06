@@ -50,6 +50,10 @@ export default function Mint() {
       }
 
 
+      const isUrl = (string) => {
+        try { return Boolean(new URL(string)); }
+        catch(e){ return false; }
+      }
 
       //mint Single
       const mintsingle = async (e) => {
@@ -143,7 +147,7 @@ export default function Mint() {
 
           const imageuri = e.target.imageuri.value;
 
-          const price = e.target.priceone.value;
+          //const price = e.target.priceone.value;
 
           const reformat = ethers.utils.parseEther(inputdataone);
           console.log(reformat);
