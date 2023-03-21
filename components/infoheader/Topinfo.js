@@ -2,17 +2,20 @@ import React, {useContext, useEffect, useState} from 'react';
 import Contexts from '../context/contextclass';
 import { shortenAddress } from '../utils/trauncate';
 import { ethers } from 'ethers';
+import { chainBSC, chainPolygon, chainArbitrum } from '../utils/constants';
 
 export default function Topinfo() {
 
     //context and states
     const { 
       provider, 
-      setProvider, 
+      setProvider,
       address,
       tokenbalance,
       setTokenBalance,
-      setChain
+      manualChain,
+      setmanualChain,
+      correctChain
     } = useContext(Contexts);
     
     let chainlinks = {
@@ -27,6 +30,16 @@ export default function Topinfo() {
   const change = (data, id) => {
     setSelectedChain(data);
     setChoose(false);
+    if(id == 'bsc') {
+      setmanualChain(chainBSC);
+      correctChain(chainBSC);
+    } else if(id == 'polygon') {
+      setmanualChain(chainPolygon);
+      correctChain(chainPolygon);
+    } else {
+      setmanualChain(chainArbitrum);
+      chainPolygon(chainArbitrum);
+    }
   }
 
       //get balance
@@ -45,7 +58,7 @@ export default function Topinfo() {
       getBalance();
     }
 
-  }, [choose])
+  }, [choose, manualChain]);
   
 
   return (
@@ -53,14 +66,14 @@ export default function Topinfo() {
         {/* Search */}
          <div className=" hidden md:flex md:bg-[#ffffff0d] md:p-2 md:rounded-[4px]">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                <path stroke-linecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
            <input type="text" className='text-white bg-transparent outline-0 border-0 pl-2' placeholder='Search here' />
          </div>
          
          <div className="md:hidden">
            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6 text-white">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                <path stroke-linecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
          </div>
         {/* Search */}

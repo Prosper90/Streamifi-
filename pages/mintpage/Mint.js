@@ -3,6 +3,10 @@ import Topinfo from '../../components/infoheader/Topinfo';
 import Contexts from '../../components/context/contextclass';
 import { ContractAddress, contractABI, chainID } from '../../components/utils/constants';
 import { ethers } from 'ethers';
+import Select from '../../components/mintLayers/Select';
+import Upload from '../../components/mintLayers/Upload';
+import Forms from '../../components/mintLayers/Forms';
+import Smallpreloader from '../../components/preloader/Smallpreloader';
 
 
 export default function Mint() {
@@ -13,24 +17,29 @@ export default function Mint() {
     const { 
       provider, 
       setProvider, 
-      address, 
-      setAddress, 
-      signer, 
-      setSigner, 
-      chain, 
-      setChain, 
-      notify, 
+      address,  
       setNotify, 
-      notifyType,
       setNotifyType,
-      notifyMsg,
       setNotifyMsg,
-      userData
+      userData,
+      manualChain,
+      smallLoad,
+      setSmallLoad
     } = useContext(Contexts);
       const [bnblife, setBnblive] = useState();
       const [inputdataone, setInputdataone] = useState("0");
       const [inputdatatwo, setInputdatatwo] = useState("0");
-
+      //for progress
+      const [progress, setProgress] = useState('home');
+      const [selected, setSelected] = useState();
+      const [uploaded, setUploaded] = useState(false);
+      //uris and urls values
+      //for singles
+      const[singleImg, setSingleImg] = useState();
+      const [singleSongs, setSingleSongs] = useState();
+      //for Albums
+      const[AlbumImg, setAlbumImg] = useState();
+      const [AlbumSongs, setAlbumSongs] = useState();
 
       
 
@@ -84,19 +93,27 @@ export default function Mint() {
               setNotifyMsg("Link should be Live and formatted properly");
               return ;
             }
+            
   
+
+          try {
+            setSmallLoad(true);
+            const Contract = await getContract();
+            const addSingle = await Contract.addSingle(copies, songName, artist, musiuri, imageuri, reformat);
+            await addSingle.wait();
+            setSmallLoad(false);
+          } catch (error) {
+            setNotify(true);
+            setNotifyType("warn");
+            setNotifyMsg("You cancelled the transaction");                
+          }
   
-          const Contract = await getContract();
-          const addSingle = await Contract.addSingle(copies, songName, artist, musiuri, imageuri, reformat);
-          await addSingle.wait();
-  
-  
-  
+
             //update user to creator if they were not
             //backend route https://streamifibackend.fly.dev/
             if(!userData.creator){
               //console.log(checkseller);
-                  const create = await fetch(`https://streamifibackend.fly.dev/create/${address}`, 
+                  const create = await fetch(`https://streamifibackend.fly.dev/user/create/${address}`, 
                   {
                       method: 'POST',   
                       headers: {
@@ -109,9 +126,7 @@ export default function Mint() {
               await create.json();
           }
   
-  
-  
-  
+
             setNotify(true);
             setNotifyType("Success")
             setNotifyMsg("Successfully Minted");
@@ -178,16 +193,24 @@ export default function Mint() {
             return;
           }
           
+          try {
+            setSmallLoad(true);
+            const Contract = await getContract();
+            const mintAlbum = await Contract.addAlbum( songput, artistput, musiuris, imageuri, reformat );
+            await mintAlbum.wait();
+            setSmallLoad(false);          
+          } catch (error) {
+            setNotify(true);
+            setNotifyType("warn");
+            setNotifyMsg("You cancelled the transaction");            
+          }
 
-          const Contract = await getContract();
-          const mintAlbum = await Contract.addAlbum( songput, artistput, musiuris, imageuri, reformat );
-          await mintAlbum.wait();
 
 
           //update user to creator if they were not
           if(!userData.creator) {
               //console.log(checkseller);
-                  const create = await fetch(`https://streamifibackend.fly.dev/create/${address}`, 
+                  const create = await fetch(`https://streamifibackend.fly.dev/user/create/${address}`, 
                   {
                       method: 'POST',   
                       headers: {
@@ -217,8 +240,6 @@ export default function Mint() {
     }
 
 
-
-
       const handleChangeone = (e) => {       
         const converted = (e.target.value/bnblife) * 1;
         setInputdataone((converted).toFixed(4));
@@ -231,9 +252,53 @@ export default function Mint() {
       }
 
 
+
+      const pages = () => {
+        switch (progress) {
+          case "home":
+            return <Select
+            setSelected={setSelected}
+            setProgress={setProgress}
+            selected={selected}
+            />;
+          case "upload":
+            return <Upload
+            selected={selected}
+            setProgress={setProgress}
+            setUploaded={setUploaded}
+            //for uris
+            setSingleImg={setSingleImg}
+            setSingleSongs={setSingleSongs}
+            setAlbumImg={setAlbumImg}
+            setAlbumSongs={setAlbumSongs}
+            />;
+          case "form":
+            return <Forms
+            selected={selected}
+            mintalbum={mintalbum}
+            inputdataone={inputdataone}
+            handleChangeone={handleChangeone}
+            mintsingle={mintsingle}
+            inputdatatwo={inputdatatwo}
+            handleChangetwo={handleChangetwo}
+            //for uris
+            singleImg={singleImg}
+            singleSongs={singleSongs}
+            AlbumImg={AlbumImg}
+            AlbumSongs={AlbumSongs}
+             />;
+          default:
+            break;
+        }
+      }
+
+
+
       useEffect(() => {
+
         getPrice();
-      }, [])
+
+      }, [manualChain])
       
 
   return (
@@ -243,95 +308,26 @@ export default function Mint() {
            <img src="/images/mintimage.png" alt="mintImage" />
         </div>
 
-        {/* Mint inputs */}
-        <div className=" flex flex-col items-center md:flex-row md:justify-center gap-[70px] p-2 mt-[50px] text-sm ">
+        <div className="w-full relative">
+          {
+            smallLoad && 
+            <Smallpreloader />
+           }
 
-          {/* For Albums */}
-          <div className=" w-[80%] md:w-[35%]">
+          <div className="m-3 text-center">Mint</div>
 
-            <h3 className='font-medium mb-[29px]'>Mint  Album</h3>
+          { pages() }
 
-            <form action="flex flex-col bg-white" onSubmit={(e) => mintalbum(e)}>
-
-               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <input type="text" placeholder='Music Names' name='musicNames' className='bg-transparent outline-0 border-0' />
-                 <img src="/images/headset.png" alt="" />
-               </div>
-
-               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <input type="text" placeholder='Artist' name='artists' className='bg-transparent outline-0 border-0' />
-                 <img src="/images/artist.png" alt="" />
-               </div>
-
-               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <input type="text" placeholder='Uris' name='musiuris' className='bg-transparent outline-0 border-0' />
-                 <img src="/images/uri.png" alt="" />
-               </div>
-
-               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                 <input type="text" placeholder='Image cover' name='imageuri' className='bg-transparent outline-0 border-0' />
-                 <img src="/images/image.png" alt="" />
-               </div>
-
-               <div className=" relative flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                  {inputdataone && <small className='absolute bottom-6'  >{inputdataone} BNB</small> } 
-                 <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangeone(e)} />
-                 <img src="/images/dollar.png" alt="" />
-               </div>
-
-               <button className='bg-[#553CDF] text-white rounded-[5px] p-3 w-[150px]' type='submit'>Mint</button>
-
-            </form>
-
+          <div className="w-full flex justify-center items-center pb-[55px]  md:p-[20px]">
+             { progress === "home" ?
+                <div className={`${ selected ? "opacity-100" : "opacity-25" } cursor pointer bg-[#553CDF] rounded-[5px] p-5 text-center w-[100px] h-[46px] pt-[11px]`}
+                onClick={() => setProgress("upload") } >proceed</div>
+              :
+              progress === "upload" &&
+                <div className={`${ uploaded ? "opacity-100" : "opacity-25" } cursor-pointer bg-[#553CDF] rounded-[5px] p-5 text-center w-[100px] h-[46px] pt-[11px]`}
+                onClick={() => setProgress("form") } >proceed</div>
+             }
           </div>
-
-          {/* Seperate Line */}
-          <div className=" hidden md:block md:h-[400px] md:bg-white md:mt-5 md:ml-7 md:mr-7 md:text-[1px]">.</div>
-
-          {/* For Singles */}
-          <div className=" w-[80%] md:w-[35%] h-full">
-
-            <h3 className='font-medium mb-[29px]'>Mint  Singles</h3>
-
-            <form action="flex flex-col gap-3 bg-white" onSubmit={(e) => mintsingle(e)}>
-
-              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                {/* <div className="">Music Names</div> */}
-                <input type="text" name='musicName' placeholder='Music Names' className='bg-transparent outline-0 border-0' />
-                <img src="/images/headset.png" alt="" />
-              </div>
-
-              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                {/* <div className="">Artist</div> */}
-                <input type="text" placeholder='Artist' name='artist' className='bg-transparent outline-0 border-0' />
-                <img src="/images/artist.png" alt="" />
-              </div>
-
-              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                {/* <div className="">Uris</div> */}
-                <input type="text" placeholder='Uris' name='musiuri' className='bg-transparent outline-0 border-0' />
-                <img src="/images/uri.png" alt="" />
-              </div>
-
-              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
-                {/* <div className="">Image cover</div> */}
-                <input type="text" placeholder='Image cover' name='imageuri' className='bg-transparent outline-0 border-0' />
-                <img src="/images/image.png" alt="" />
-              </div>
-
-              <div className="relative flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">  
-                {inputdatatwo && <small className='absolute bottom-6' >{inputdatatwo} BNB</small>} 
-                <input type="text" placeholder='Price' className='bg-transparent outline-0 border-0' onChange={(e) => handleChangetwo(e)} />
-                <img src="/images/dollar.png" alt="" />
-              </div>
-
-              <button className='bg-[#553CDF] text-white rounded-[5px] p-3 w-[150px]' type='submit' >Mint</button>
-
-            </form>
-
-          </div>
-
-
 
         </div>
         

@@ -1,10 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import AlbumMarket from '../../components/Album/AlbumMarket';
 import SingleMarket from '../../components/Single/SingleMarket';
 import { ContractAddress, contractABI, chainID } from '../../components/utils/constants';
 import { ethers } from 'ethers';
+import Contexts from '../../components/context/contextclass';
 
 export default function Marketplace() {
+
+
+//context info
+const {
+  manualChain
+} = useContext(Contexts);
 
 /* global BigInt */
 const getContract = async () => {
@@ -35,7 +42,7 @@ const getSingle = async () => {
 useEffect(() => {
   getAlbums();
   getSingle();
-}, [])
+}, [manualChain])
 
 
   return (
@@ -48,15 +55,9 @@ useEffect(() => {
 
           <div className="flex justify-center gap-3">
            { albums ?
-              albums.map((data, index) => {
-                if(data[0].sale) {
-                  return (
-                    <AlbumMarket data={data} key={index} />
-                   )
-                }
-             })
+                <AlbumMarket albums={albums} />
              : 
-             <div className="">Empty Market</div>
+               <div className="">Empty Market</div>
            }
             
           </div>

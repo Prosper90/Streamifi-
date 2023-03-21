@@ -30,7 +30,9 @@ export default function Header() {
           notifyMsg,
           setNotifyMsg,
           userData,
-          setUserdata
+          setUserdata,
+          manualChain,
+          correctChain
         } = useContext(Contexts);
 
     //router
@@ -42,63 +44,21 @@ export default function Header() {
 
 
 
-        //check for correct chain
-        const correctChain = async (id) => {
-
-            try {
-              //switch chain
-              await window.ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [
-                  {
-                    chainId: `0x${Number(id).toString(16)}`,
-                  }],
-              });
-              return;
-            } catch (error) {
-              if (error === 4902) {
-                //add the token or currency to metamask
-                await window.ethereum.request({
-                  method: "wallet_addEthereumChain",
-                  params: [
-                    {
-                      chainId: `0x${Number(id).toString(16)}`,
-                      rpcUrls: [
-                        " https://data-seed-prebsc-1-s1.binance.org:8545",
-                      ],
-                      chainName: "BSC testnet",
-                      nativeCurrency: {
-                        name: "BSC",
-                        symbol: "BNB",
-                        decimals: 18,
-                      },
-                      blockExplorerUrls: [
-                        "https://explorer.binance.org/smart-testnet",
-                      ],
-                    },
-                  ],
-                });
-                return;
-              }
-            }
-          
-    };
 
     //connect
     const connect = async (providerarg) => {
 
-        if(chain == chainBSC) {
-          correctChain(chainBSC);
-        } else if(chain == chainPolygon) {
-          correctChain(chainPolygon);
-        } else if(chain == chainArbitrum) {
-          correctChain(chainArbitrum);
-        }
 
         if(window.ethereum) {
           await providerarg?.send("eth_requestAccounts", []);
         }
           const another = await new ethers.providers.Web3Provider(window.ethereum);
+          const tempChain =  await another.getNetwork();
+          //switch if chain is not correct
+          if(tempChain !== chainBSC || tempChain !== chainPolygon || tempChain !== chainArbitrum) {
+            correctChain(manualChain);
+          }
+
           //set and get signer
           const signer = await another.getSigner();
           setSigner(signer);
@@ -109,7 +69,6 @@ export default function Header() {
           setChain(await signer.getChainId());
           //setModalWallet(false);
           //check to see if this account is on the backend if not create an account
-          
           const user = await fetch(`https://streamifibackend.fly.dev/user/${address}`, { method: 'GET' });
           //console.log(user, "user checking");
           const userInfo = await user.json();
@@ -139,6 +98,7 @@ export default function Header() {
             setNotifyMsg(`Welcome ${shortenAddress(address)}`);            
           }
           
+          
         
       }
 
@@ -153,8 +113,6 @@ export default function Header() {
             setNotifyMsg("Please connect your wallet to proceed");
             return ;
           }
-
-          console.log("We on");
     
     
           router.push(link);
@@ -168,9 +126,9 @@ export default function Header() {
             connect(provider);
         }
         
-        if(chain) {
-          correctChain(chain);
-        }
+
+          correctChain(manualChain);
+        
       }, [])
       
 
@@ -179,7 +137,7 @@ export default function Header() {
     <div className='relative p-5 md:p-10 flex justify-between items-center text-white text-sm'>
 
         <div className="">
-            <Image height={30} width={30} src="/images/logo.png" alt="logo" />
+            <Image height={30} width={300} src="/images/logo.png" alt="logo" />
         </div>
           
         {/* Right */}

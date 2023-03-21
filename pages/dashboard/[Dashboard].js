@@ -34,7 +34,6 @@ export default function Dashboard({user}) {
   const getowned = async () => {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
-    console.log(owneddatas);
     setOwned(owneddatas);
   }
 
@@ -176,12 +175,12 @@ export default function Dashboard({user}) {
                 <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5" key={index}>
                    
                   <div className="flex justify-start items-start  rounded-[3px] mr-3" style={{background: 'linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)', backdropFilter : 'blur(20px)'}}>
-                     <img src="/images/samplemain.png" alt="image" className='w-[70px] p-[3px]' />
+                     <img src={data[0][0].imguri} alt="image" className='w-[70px] p-[3px]' />
                   </div>
 
                    <div className="flex flex-col justify-center items-start gap-1">
                      <div className="font-extrathin">Albums</div>
-                     <div className="text-sm font-medium"> {data.songname} </div>
+                     <div className="text-sm font-medium"> {data[0][0].songname} </div>
 
                      <div className="flex flex-col font-thin w-full">
 
@@ -189,14 +188,14 @@ export default function Dashboard({user}) {
                            <span>Price</span>
 
                             <span className="flex justify-center items-center">
-                              <span>{ Math.round( (data.cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                              <span>{ Math.round( (data[0][0].cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                             </span>
 
                         </div>
 
                      </div>
 
-                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={listforsale("Album", data.id)}>
+                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={listforsale("Album", data[0].id)}>
                         List for sale
                      </div>
 

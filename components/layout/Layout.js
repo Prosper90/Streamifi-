@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Topinfo from '../infoheader/Topinfo';
 import { ethers } from 'ethers';
 import Notifiy from '../Notifier/Notifiy';
+import { chainBSC, chainPolygon, chainArbitrum } from '../utils/constants';
 
 
 export default function Layout({children}) {
@@ -30,6 +31,11 @@ export default function Layout({children}) {
     const [selectedAlbum, setSelectedAlbum] = useState();
     //wallet balance
     const [tokenbalance, setTokenBalance] = useState();
+    //our own chain
+    const[manualChain, setmanualChain] = useState(chainBSC);
+    const [chainChanged, setChainchanged] = useState(false);
+    //preloaders
+    const[smallLoad, setSmallLoad] = useState(false);
 
 
 
@@ -40,6 +46,50 @@ export default function Layout({children}) {
       setProvider(provider);
    }
 
+
+    //check for correct chain
+    const correctChain = async (id) => {
+
+      try {
+        //switch chain
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [
+            {
+              chainId: `0x${Number(id).toString(16)}`,
+            }],
+        });
+        setChainchanged(!chainChanged);
+        return;
+      } catch (error) {
+        if (error === 4902) {
+          //add the token or currency to metamask
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: `0x${Number(id).toString(16)}`,
+                rpcUrls: [
+                  " https://data-seed-prebsc-1-s1.binance.org:8545",
+                ],
+                chainName: "BSC testnet",
+                nativeCurrency: {
+                  name: "BSC",
+                  symbol: "BNB",
+                  decimals: 18,
+                },
+                blockExplorerUrls: [
+                  "https://explorer.binance.org/smart-testnet",
+                ],
+              },
+            ],
+          });
+          setChainchanged(!chainChanged);
+          return;
+        }
+      }
+    
+  };
 
 
     //useEffect
@@ -82,7 +132,7 @@ export default function Layout({children}) {
        }
   
   
-      }, [address, chain, notify])
+      }, [address, chain, notify, chainChanged])
           
   
   
@@ -94,7 +144,6 @@ export default function Layout({children}) {
     useEffect(() => {
       function handleResize() {
         setPageWidth(window.innerWidth);
-        //console.log("Added added");
       }
         //console.log(window.innerWidth, "innerWidth called");
         window.addEventListener('resize', handleResize);
@@ -139,7 +188,15 @@ export default function Layout({children}) {
     setSelectedAlbum,
     //wallet info
     tokenbalance,
-    setTokenBalance
+    setTokenBalance,
+    //manual chain
+    manualChain,
+    setmanualChain,
+    //functions
+    correctChain,
+    //preloaders
+    smallLoad,
+    setSmallLoad
     }} >
 
     {router.pathname === '/' ?

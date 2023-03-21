@@ -4,11 +4,8 @@ import Landingpage from '../components/landingPage/Landingpage';
 import Notifiy from '../components/Notifier/Notifiy';
 
 
-export default function Home() { 
+export default function Home({users}) { 
 
-
-  //context
-  const {pages} = useContext(Contexts);
 
 
 
@@ -19,7 +16,28 @@ export default function Home() {
 
   return (
     <>
-     <Landingpage />
+     <Landingpage
+      users={users}
+     />
     </>
   )
+}
+
+
+
+
+export async function  getServerSideProps(context) {
+
+  const user = await fetch(`https://streamifibackend.fly.dev/user`, { method: 'GET' });
+  const userInfo = await user.json();
+
+
+
+
+  return {
+    props: {
+      users : userInfo,
+    }
+  }
+  
 }

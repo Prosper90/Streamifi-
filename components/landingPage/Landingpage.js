@@ -11,7 +11,7 @@ import Trendingsongs from './Trendingsongs';
 import { ChatTokenOmonics } from '../utils/chatTokenOmics';
 
 
-export default function Landingpage() {
+export default function Landingpage({users}) {
 
   //context
   const { pages, setPages } = useContext(Contexts);
@@ -93,38 +93,41 @@ export default function Landingpage() {
       {/* Section three */}
       <div className=" bg-[#0C0F16] relative flex flex-col justify-center h-[100dvh] items-center z-[99999] ">
 
-        <div className="absolute top-24 flex flex-col items-center">
+        <div className="absolute top-10 flex flex-col items-center">
           <h1 className='tracking-[.5em] md:text-xl text-lg font-sans font-normal text-[#E81CFF]'>Our Top List of Creator</h1>
           <h1 className='tracking-[.1em] md:text-5xl text-xl mt-3 font-sans font-bold '>Top List</h1>
         </div>
         <div className="p-8 bg-[url('/images/TOPLIST.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
-          <div className="flex flex-col justify-center items-center w-[100%]  p-0 md:p-10 mt-10">
+          <div className="flex flex-col justify-center items-center w-[100%] p-0 md:p-10 mt-[100px]">
 
-            <ul class="flex  p-1 bg-[#000] rounded-full shadow-lg mb-5">
+            <ul class="flex p-1 bg-[#000] rounded-full shadow-lg mb-6">
+
+              {/* 
               <li class="nc-NavItem2 relative" data-nc-id="NavItem2">
                 <button className="block font-medium whitespace-nowrap px-3 py-2 text-sm sm:px-7 sm:py-3 capitalize rounded-full bg-primary-6000 text-primary-50 focus:outline-none bg-[#553CDF]">
                   <div className="flex items-center justify-center sm:space-x-2.5 text-xs sm:text-sm">
                     <span className="hidden sm:inline-block">
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.4399 19.05L15.9599 20.57L18.9999 17.53" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M14.4399 19.05L15.9599 20.57L18.9999 17.53" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                       </svg>
                     </span>
                     <span>Trending</span>
                   </div>
                 </button>
               </li>
+             */}
 
               <li className="nc-NavItem2 relative" data-nc-id="NavItem2">
                 <button className="block font-medium whitespace-nowrap px-3 py-2 text-sm sm:px-7 sm:py-3 capitalize rounded-full text-neutral-6000 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900  focus:outline-none">
                   <div className="flex items-center justify-center sm:space-x-2.5 text-xs sm:text-sm cursor-pointer">
                     <span className="hidden sm:inline-block">
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5 19.5H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M16.5 21.5V17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M18.5 19.5H14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M16.5 21.5V17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                       </svg>
                     </span>
                     <span>Top Creators</span>
@@ -133,9 +136,7 @@ export default function Landingpage() {
               </li>
             </ul>
 
-            <div className="w-[100%]">
-              <Trendingsongs />
-            </div>
+              <Trendingsongs users={users} />
 
 
           </div>
@@ -170,57 +171,56 @@ export default function Landingpage() {
 
 
       {/* Section Five */}
-      <div className=" bg-[#0C0F16] flex pt-44 md:pt-0 justify-center items-center h-auto md:h-screen">
+      <div className=" bg-[#0C0F16] flex pt-44 md:pt-0 justify-center items-center h-auto md:h-auto">
 
         <div className="relative bg-[url('/images/ROADMAP.png')] flex-col bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
           <div className="flex flex-col items-center">
             <h1 className='tracking-[.5em] md:text-xl text-lg font-sans font-normal text-[#E81CFF]'>GOALS AND PLANS</h1>
             <h1 className='tracking-[.1em] md:text-5xl text-xl mt-3 font-sans font-bold '>ROADMAP</h1>
           </div>
-          <div className="flex flex-wrap my-5 md:mt-24 gap-16 justify-center w-[100%] md:w-[75%] ">
+          <div className="flex flex-wrap my-5 md:mt-24 gap-16 justify-center w-[100%] md:w-[95%] ">
 
             <div className="flex flex-col items-center">
-              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">01.</span></h1>
-              <div className="border border-[#E81CFF] rounded-md p-5 ">
-                <p className='md:text-base text-sm font-sans font-normal'>- Ideation/structure formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Core team formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Market research
+              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">01.</span> -Q1 2023</h1>
+              <div className="border border-[#553CDF] rounded-md p-5 ">
+                <p className='md:text-base text-sm font-sans font-normal'>- conceptualization/structure</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Formation of team</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Website</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Roadmap</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Whitepaper</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center">
+              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">02.</span> Q2 2023</h1>
+              <div className="border border-[#553CDF] rounded-md p-5 ">
+                <p className='md:text-base text-sm font-sans font-normal'>- Contract development on <br/> Polygon, BSC, Arbitrum Blockchain</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Release beta version NFT marketplace</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Begin developing game andmetaverse
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">02.</span></h1>
-              <div className="border border-[#E81CFF] rounded-md p-5 ">
-                <p className='md:text-base text-sm font-sans font-normal'>- Ideation/structure formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Core team formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Market research
+              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">03.</span>Q3 2023</h1>
+              <div className="border border-[#553CDF] rounded-md p-5 ">
+                <p className='md:text-base text-sm font-sans font-normal'>- Updating key information and roadmap</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Release NFT Marketplace</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Release 1st Music NFT album
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">03.</span></h1>
-              <div className="border border-[#E81CFF] rounded-md p-5 ">
-                <p className='md:text-base text-sm font-sans font-normal'>- Ideation/structure formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Core team formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Market research
-                </p>
+              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">04.</span>Q4 2023</h1>
+              <div className="border border-[#553CDF] rounded-md p-5 ">
+                <p className='md:text-base text-sm font-sans font-normal'>- KOL partnerships with key industry <br/> leaders as well as underground <br/> and mainstream artists.</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Release NFT music player app <br/> with sample music.</p>
               </div>
             </div>
             <div className="flex flex-col items-center">
-              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">03.</span></h1>
-              <div className="border border-[#E81CFF] rounded-md p-5 ">
-                <p className='md:text-base text-sm font-sans font-normal'>- Ideation/structure formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Core team formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Market research
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">04.</span></h1>
-              <div className="border border-[#E81CFF] rounded-md p-5 ">
-                <p className='md:text-base text-sm font-sans font-normal'>- Ideation/structure formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Core team formation</p>
-                <p className='md:text-base text-sm font-sans font-normal'>- Market research
+              <h1 className='md:text-xl text-lg mb-3 font-sans font-bold '>Phase <span className="text-[#E81CFF]">05.</span>Q1 2024</h1>
+              <div className="border border-[#553CDF] rounded-md p-5 ">
+                <p className='md:text-base text-sm font-sans font-normal'>- Integrate crosschain technology with Kadena</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- Establish the musician's job market <br/> on IOS, Android and web</p>
+                <p className='md:text-base text-sm font-sans font-normal'>- More KOL, and recruit global superstar
                 </p>
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function Landingpage() {
 
 
       {/* Section six */}
-      <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[70%] md:h-[100%]">
+      <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh] md:h-[100%]">
 
         <div className="p-8 md:mt-[80px] bg-[url('/images/TOKENOMICS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
 
@@ -255,47 +255,14 @@ export default function Landingpage() {
 
 
 
-      {/* Section seven */}
+      {/* Section seven 
       <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[70%] md:h-[100%]">
 
         <div className="p-8 md:mt-[80px] bg-[url('/images/GAMES.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
 
-          <div className="flex flex-col justify-center items-center w-[100%] md:w-[75%] p-20 mt-10">
+          <div className="flex flex-col justify-center items-center p-0 mt-10">
 
-            <ul class="flex  p-1 bg-[#000] rounded-full shadow-lg mb-5">
-              <li class="nc-NavItem2 relative" data-nc-id="NavItem2">
-                <button className="block font-medium whitespace-nowrap px-3 py-2 text-sm sm:px-7 sm:py-3 capitalize rounded-full bg-primary-6000 text-primary-50 focus:outline-none bg-[#553CDF]">
-                  <div className="flex items-center justify-center sm:space-x-2.5 text-xs sm:text-sm">
-                    <span className="hidden sm:inline-block">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.4399 19.05L15.9599 20.57L18.9999 17.53" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                    <span>Trending</span>
-                  </div>
-                </button>
-              </li>
-
-              <li className="nc-NavItem2 relative" data-nc-id="NavItem2">
-                <button className="block font-medium whitespace-nowrap px-3 py-2 text-sm sm:px-7 sm:py-3 capitalize rounded-full text-neutral-6000 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900  focus:outline-none">
-                  <div className="flex items-center justify-center sm:space-x-2.5 text-xs sm:text-sm cursor-pointer">
-                    <span className="hidden sm:inline-block">
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5 19.5H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M16.5 21.5V17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M12.16 10.87C12.06 10.86 11.94 10.86 11.83 10.87C9.44997 10.79 7.55997 8.84 7.55997 6.44C7.54997 3.99 9.53997 2 11.99 2C14.44 2 16.43 3.99 16.43 6.44C16.43 8.84 14.53 10.79 12.16 10.87Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        <path d="M11.99 21.8101C10.17 21.8101 8.36004 21.3501 6.98004 20.4301C4.56004 18.8101 4.56004 16.1701 6.98004 14.5601C9.73004 12.7201 14.24 12.7201 16.99 14.5601" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                      </svg>
-                    </span>
-                    <span>Top Creators</span>
-                  </div>
-                </button>
-              </li>
-            </ul>
-
-
+            GAMES
 
           </div>
 
@@ -303,9 +270,54 @@ export default function Landingpage() {
 
 
       </div>
+      */}   
 
 
-     {/* <Footer />*/}
+
+      {/* Section Eight */}
+      <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh] pb-[336px] md:h-[100%]">
+
+        <div className=" p-8 absolute md:mt-[80px] bg-[url('/images/SOCIALS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center gap-10 flex-wrap w-full">
+ 
+           <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center">
+                <img src="/images/twitter.png" alt="" className='w-[80%]' />
+              </div>
+              <div className="text-md font-semibold text-[#E81CFF]">Twitter</div>
+              <div className="text-sm font-light w-[100%] text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, eius!</div>
+           </div>
+
+           <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center">
+                <img src="/images/discord.png" alt="" className='w-[80%]' />
+              </div>
+              <div className="text-md font-semibold text-[#E81CFF]">Discord</div>
+              <div className="text-sm font-light w-[100%] text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, eius!</div>
+           </div>
+
+           <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center">
+                <img src="/images/telegram.png" alt="" className='w-[80%]' />
+              </div>
+              <div className="text-md font-semibold text-[#E81CFF]">Telegram</div>
+              <div className="text-sm font-light w-[100%] text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, eius!</div>
+           </div>
+
+           <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
+              <div className="flex justify-center items-center">
+                <img src="/images/twitter.png" alt="" className='w-[80%]' />
+              </div>
+              <div className="text-md font-semibold text-[#E81CFF]">Meduim</div>
+              <div className="text-sm font-light w-[100%] text-center">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti, eius!</div>
+           </div>
+
+        </div>
+
+
+      </div>
+
+
+      <Footer />
 
     </div>
   )

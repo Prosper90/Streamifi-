@@ -19,13 +19,14 @@ export default function Purchase() {
         setNotifyMsg,
         typeSelected,
         setTypeSelected,
+        manualChain
       } = useContext(Contexts);
 
 
 
       useEffect(() => {
 
-      }, [])
+      }, [manualChain])
       
   
 

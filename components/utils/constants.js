@@ -4,7 +4,7 @@ import abi from "./abi.json";
 //localhost  
 //testnet 0xCBc47BcCc5Cb2Ef26BAe2a9F551b5b48538B38e3
 //main 
-export const ContractAddress = "0xCBc47BcCc5Cb2Ef26BAe2a9F551b5b48538B38e3";
+export const ContractAddress = "0x1Bd0b67870a8B8f864164DADA314f2b38A1b127d";
 
 
 export const contractABI = abi;
