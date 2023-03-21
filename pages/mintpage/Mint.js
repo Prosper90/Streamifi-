@@ -9,6 +9,7 @@ import Forms from '../../components/mintLayers/Forms';
 import Smallpreloader from '../../components/preloader/Smallpreloader';
 
 
+
 export default function Mint() {
 
       /* global BigInt */
