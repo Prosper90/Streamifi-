@@ -129,10 +129,10 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
       setUploaded(true);
       setAddupload(false);
       if(selected === "Album") {
-        setAlbumImg(`${gotten.path}/${imgCover.name}`)
+        setAlbumImg(`${gotten.path}${imgCover}`)
         setAlbumSongs(`${gotten.path}`)
       } else {
-        setSingleImg(`${gotten.path}/${imgCover.name}`);
+        setSingleImg(`${gotten.path}${imgCover}`);
         setSingleSongs(`${gotten.path}`)
       }
       setSmallLoad(false);

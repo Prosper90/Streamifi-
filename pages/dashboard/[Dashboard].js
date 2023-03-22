@@ -34,6 +34,7 @@ export default function Dashboard({user}) {
   const getowned = async () => {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
+    console.log(owneddatas);
     setOwned(owneddatas);
   }
 
