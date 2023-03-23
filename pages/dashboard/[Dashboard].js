@@ -50,16 +50,32 @@ export default function Dashboard({user}) {
 
       //sell from the contract
       if(type === "Album") {
+
+        try {
           console.log("called album");
           const Contract = await getContract();
           const setforsaleAlbum = await Contract.Albumforsale(idOne, idTwo);
-          await setforsaleAlbum.wait();
+          await setforsaleAlbum.wait(); 
+
+        } catch (error) {
+          setNotify(true);
+          setNotifyType("warn");
+          setNotifyMsg("user cancelled transaction")          
+        }
           
       } else {
+
+        try {
           console.log("called singles");
           const Contract = await getContract();
           const setforsaleSingle = await Contract.singleforsale(idOne, idTwo);
           await setforsaleSingle.wait();
+        } catch (error) {
+          setNotify(true);
+          setNotifyType("warn");
+          setNotifyMsg("user cancelled transaction")              
+        }
+
       }
 
         //notifications
@@ -185,7 +201,7 @@ export default function Dashboard({user}) {
 
                      <div className="flex flex-col font-thin w-full">
 
-                        <div className="flex justify-between w-full">
+                        <div className="flex justify-between w-full gap-5">
                            <span>Price</span>
 
                             <span className="flex justify-center items-center">
@@ -196,7 +212,7 @@ export default function Dashboard({user}) {
 
                      </div>
 
-                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={listforsale("Album", data[0].id)}>
+                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={() => listforsale("Album", data[0][0].id)}>
                         List for sale
                      </div>
 
@@ -256,7 +272,7 @@ export default function Dashboard({user}) {
 
                       </div>
 
-                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={listforsale("Single", data.id)}>
+                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={ () => listforsale("Single", data.id)}>
                          List for sale
                       </div>
 

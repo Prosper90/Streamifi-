@@ -4,6 +4,7 @@ import SingleMarket from '../../components/Single/SingleMarket';
 import { ContractAddress, contractABI, chainID } from '../../components/utils/constants';
 import { ethers } from 'ethers';
 import Contexts from '../../components/context/contextclass';
+import Image from 'next/image';
 
 export default function Marketplace() {
 
@@ -27,15 +28,27 @@ const [single, setSingle] = useState();
 const getAlbums = async () => {
   const contract = await getContract();
   const data = await contract.getAlbumsmarket();
-  console.log(data);
-  setAlbums(data);
+  //setAlbums(data);
+  
+  const goThrought = data.filter((data) => {
+    return data.Albummarketplace[0].sale === true;
+  });
+  console.log(goThrought);
+
+  setAlbums(goThrought);
+  
 }
 
 
 const getSingle = async () => {
   const contract = await getContract();
   const data = await contract.getSinglesmarket();
-  setSingle(data);
+
+  const goThrought = data.filter((data) => {
+    return data.sale === true;
+  });
+
+  setSingle(goThrought);
 }
 
 
@@ -53,11 +66,13 @@ useEffect(() => {
         <div className="flex flex-col gap-3">
           <div className="">On Sale Albums</div>
 
-          <div className="flex justify-center gap-3">
-           { albums ?
+          <div className="flex justify-center items-center gap-3">
+           { albums?.length !== 0 ?
                 <AlbumMarket albums={albums} />
-             : 
-               <div className="">Empty Market</div>
+                :
+                <div className="w-[24%] flex justify-center items-center">
+                    <img src="/images/empty.svg" alt="illustration"  className='' />
+                </div>                
            }
             
           </div>
@@ -71,17 +86,14 @@ useEffect(() => {
           <div className="flex justify-center gap-3 ">
          
           
-          { single ?
-            single.map((data, index) => {
-             if(data.sale) {
-              return (
-                <SingleMarket data={data} key={index} />
-              )
-             }
-            })
-            :
-            <div className="">Empty market</div>
-           }
+          { single?.length !== 0 ?
+
+                <SingleMarket single={single} />
+               :
+               <div className="w-[24%] flex justify-center items-center">
+                  <img src="/images/empty.svg" alt="illustration"  className='' />
+               </div>   
+              }
   
           </div>
 

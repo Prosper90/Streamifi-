@@ -6,7 +6,7 @@ export default function Footer() {
     <div className=' p-8 pt-14  bg-[#000] text-white text-sm h-[100dvh] md:h-[250px] flex flex-col justify-around items-start md:flex-row md:justify-around md:items-start'>
       <div className="flex flex-col gap-2">
         <div className="mb-2">
-            <Image height={30} width={300} src="/images/logo.png" alt="logo" />
+            <Image height={30} width={300} src="/images/logo.svg" alt="logo" />
         </div>
         <div className="w-[70%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, consequuntur.</div>
       </div>

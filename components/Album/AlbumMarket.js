@@ -1,9 +1,10 @@
 import React,{useState, useEffect, useContext} from 'react';
 import { ContractAddress, contractABI, chainID } from '../../components/utils/constants';
-import { useRouter } from 'next';
+import { useRouter } from 'next/router';
 import Contexts from '../context/contextclass';
 import { ethers } from 'ethers';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AlbumMarket({albums}) {
 
@@ -31,23 +32,21 @@ export default function AlbumMarket({albums}) {
 
 
 
-      //router
-      const router = useRouter();
+    //router
+    const router = useRouter();
 
       const Select = (data) => {
           setTypeSelected("Album");
           setSelectedAlbum(data);
-          router.push('/purchase/${props.data.id}');
+          router.push(`/purchase/${data[0].id}`);
       }
 
   return (
          <>
           {/* Items */}
           {
-          albums.map((data, index) => {
-             if(data[0][0].sale) {
-              return (
-                <div className="bg-[#211F27] rounded-[5px]" key={props.index} onClick={() => Select(data)}>
+          albums?.map((data, index) => {
+                <div className="bg-[#211F27] rounded-[5px]" key={index} onClick={() => Select(data)}>
                   {/* Top */}
                   <div className="flex justify-center items-center rounded-[5px] p-2" style={{background: "linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)", backdropFilter: 'blur(20px)'}}>
                      <img src={ data[0].imguri} alt="sample" className='w-[50%]' />
@@ -97,9 +96,6 @@ export default function AlbumMarket({albums}) {
                       </div>
                     </div>
                  </div>
-
-                )
-              }
             })            
           }         
            

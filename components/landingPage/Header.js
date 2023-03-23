@@ -137,7 +137,7 @@ export default function Header() {
     <div className='relative p-5 md:p-10 flex justify-between items-center text-white text-sm'>
 
         <div className="">
-            <Image height={30} width={300} src="/images/logo.png" alt="logo" />
+            <Image height={30} width={200} src="/images/logo.svg" alt="logo" />
         </div>
           
         {/* Right */}

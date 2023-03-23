@@ -100,7 +100,7 @@ export default function Landingpage({users}) {
         <div className="p-8 bg-[url('/images/TOPLIST.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
           <div className="flex flex-col justify-center items-center w-[100%] p-0 md:p-10 mt-[100px]">
 
-            <ul class="flex p-1 bg-[#000] rounded-full shadow-lg mb-6">
+            <ul className="flex p-1 bg-[#000] rounded-full shadow-lg mb-6">
 
               {/* 
               <li class="nc-NavItem2 relative" data-nc-id="NavItem2">
