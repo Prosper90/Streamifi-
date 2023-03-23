@@ -205,7 +205,7 @@ export default function Dashboard({user}) {
                            <span>Price</span>
 
                             <span className="flex justify-center items-center">
-                              <span>{ Math.round( (data[0][0].cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                              <span>{ Math.round( (data[0][0].cost / 10 )  * 10 ) / 10**18 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                             </span>
 
                         </div>
