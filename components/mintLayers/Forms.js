@@ -27,6 +27,11 @@ export default function Forms({ selected,
 
             <form action="flex flex-col bg-white" onSubmit={(e) => mintalbum(e)}>
 
+              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
+                 <input type="number" placeholder='Total copies' name='copies' className='bg-transparent outline-0 border-0' />
+                 <img src="/images/headset.png" alt="" />
+               </div>
+
                <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
                  <input type="text" placeholder='Music Names' name='musicNames' className='bg-transparent outline-0 border-0' />
                  <img src="/images/headset.png" alt="" />
@@ -66,6 +71,11 @@ export default function Forms({ selected,
             <h3 className='font-medium mb-[29px]'>Mint  Singles</h3>
 
             <form action="flex flex-col gap-3 bg-white" onSubmit={(e) => mintsingle(e)}>
+
+              <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
+                 <input type="number" placeholder='Total copies' name='copies' className='bg-transparent outline-0 border-0' />
+                 <img src="/images/headset.png" alt="" />
+               </div>
 
               <div className="flex justify-between items-end bg-transparent border-b-2 border-[#333333] mb-8 pb-2">
                 {/* <div className="">Music Names</div> */}

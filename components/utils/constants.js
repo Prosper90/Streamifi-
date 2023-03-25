@@ -2,9 +2,9 @@ import abi from "./abi.json";
 
 
 //localhost  
-//testnet 0xCBc47BcCc5Cb2Ef26BAe2a9F551b5b48538B38e3
+//testnet 0xAde51cCFFd1A09F64f0C94D78F04571F6376d54F
 //main 
-export const ContractAddress = "0xc07a38b8DaB84b7A240576Fcd2f6BD064fE1e6f6";
+export const ContractAddress = "0xAde51cCFFd1A09F64f0C94D78F04571F6376d54F";
 
 
 export const contractABI = abi;

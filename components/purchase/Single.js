@@ -4,7 +4,9 @@ import Contexts from '../context/contextclass';
 import { ethers } from 'ethers';
 import Link from 'next/link';
 import { shortenAddress } from '../utils/trauncate';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { chainBSC, chainPolygon } from '../utils/constants';
+
 
 export default function Single() {
   
@@ -24,7 +26,8 @@ export default function Single() {
           setNotifyMsg,
           typeSelected,
           selectedSingle,
-          tokenbalance
+          tokenbalance,
+          manualChain
         } = useContext(Contexts);
 
         const [reselect, setReselect] = useState();
@@ -61,14 +64,14 @@ export default function Single() {
         }
   
       
-        const purchase = async (data) => {
+        const purchase = async (data, index) => {
           const contract = await getContract();
   
           let value = id.split(',');
           const idOne = parseInt(value[0]);
           const idTwo = parseInt(value[1]);
   
-          const costset = Math.round( (data.cost/10 ** 18) * 10 ) / 10;
+          const costset = Math.round( (data.cost/10 ) * 10 ) / 10**18;
           
           //checks
           if(tokenbalance < costset ) {
@@ -79,7 +82,7 @@ export default function Single() {
           }
   
   
-          const buy = await contract.buysellSingle(idOne, idTwo);
+          const buy = await contract.buysellSingle(idOne, idTwo, index);
           await buy.wait();
   
           //backend calls
@@ -166,7 +169,7 @@ export default function Single() {
                 </div>
 
                 <div className="flex justify-between items-center pt-3 ">
-                  <div className="border-2 border-[#553CDF] rounded-[15px] p-2 font-light cursor-pointer" onClick={ () => purchase(selectedSingle) }>Purchase now</div>
+                  <div className="border-2 border-[#553CDF] rounded-[15px] p-2 font-light cursor-pointer" onClick={ () => purchase(selectedSingle, selectedSingle.index) }>Purchase now</div>
 
                   <div className="">
                         <svg
@@ -250,7 +253,7 @@ export default function Single() {
             <div className="flex justify-between">
               <div className="">Price:</div>
                <div className="flex justify-center items-center bg-[#553CDF] p-2 rounded-[10px] w-[75px] "> 
-                <span className='pr-1'>{Math.round( (selectedSingle?.cost/10 ** 18) * 10 ) / 10} ETH</span>
+                <span className='pr-1'>{Math.round( (selectedSingle?.cost/10 ) * 10 ) / 10**18 } {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"} </span>
                 <img src="/images/price.png" alt="price" />
               </div>
             </div>            

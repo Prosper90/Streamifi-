@@ -1,6 +1,6 @@
 import React,{useState, useEffect, useContext} from 'react';
 import Contexts from '../../components/context/contextclass';
-import { ContractAddress, contractABI, chainID } from '../../components/utils/constants';
+import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../../components/utils/constants';
 import { ethers } from 'ethers';
 
 export default function Dashboard({user}) {
@@ -19,9 +19,14 @@ export default function Dashboard({user}) {
       setChain, 
       setNotify, 
       setNotifyType,
-      setNotifyMsg
+      setNotifyMsg,
+      manualChain,
+      unfilteredAlbums,
+      unFilteredsingle,
     } = useContext(Contexts);
   const [owned, setOwned] = useState();
+  const [ownedAlbums, setOwnedAlbums] = useState();
+  const [ownedSingles, setOwnedSingles] = useState();
 
   //get contract instance
   const getContract = async () => {
@@ -31,16 +36,22 @@ export default function Dashboard({user}) {
   }
 
 
+
   const getowned = async () => {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
     console.log(owneddatas);
+    var arrAlbum = unfilteredAlbums.filter(item => owneddatas.album.indexOf(item[0].id) === -1);
+    var arrSingle = unFilteredsingle.filter(item => owneddatas.single.indexOf(item.id) === -1);
+
     setOwned(owneddatas);
+    setOwnedAlbums(arrAlbum);
+    setOwnedSingles(arrSingle);
   }
 
 
 
-  const listforsale = async (type, ids) => {
+  const listforsale = async (type, ids, index) => {
 
     let value = ids.split(',');
     const idOne = parseInt(value[0]);
@@ -54,7 +65,7 @@ export default function Dashboard({user}) {
         try {
           console.log("called album");
           const Contract = await getContract();
-          const setforsaleAlbum = await Contract.Albumforsale(idOne, idTwo);
+          const setforsaleAlbum = await Contract.Albumforsale(idOne, idTwo, index);
           await setforsaleAlbum.wait(); 
 
         } catch (error) {
@@ -68,7 +79,7 @@ export default function Dashboard({user}) {
         try {
           console.log("called singles");
           const Contract = await getContract();
-          const setforsaleSingle = await Contract.singleforsale(idOne, idTwo);
+          const setforsaleSingle = await Contract.singleforsale(idOne, idTwo, index);
           await setforsaleSingle.wait();
         } catch (error) {
           setNotify(true);
@@ -77,7 +88,6 @@ export default function Dashboard({user}) {
         }
 
       }
-
         //notifications
         setNotify(true);
         setNotifyType("success");
@@ -181,23 +191,25 @@ export default function Dashboard({user}) {
                 
               {/* Items */}
 
-              { owned?.album?.length == 0 ?
+              { ownedAlbums?.length == 0 ?
                <>
                  Empty
                </>
               :
 
-                owned?.album?.map((data, index) => (
+              ownedAlbums?.map((data, index) => {
+                if(data.Albummarketplace[0].sale !== true) {
 
+               return (
                 <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5" key={index}>
                    
                   <div className="flex justify-start items-start  rounded-[3px] mr-3" style={{background: 'linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)', backdropFilter : 'blur(20px)'}}>
-                     <img src={data[0][0].imguri} alt="image" className='w-[70px] p-[3px]' />
+                     <img src={data.Albummarketplace[0].imguri} alt="image" className='w-[70px] p-[3px]' />
                   </div>
 
                    <div className="flex flex-col justify-center items-start gap-1">
                      <div className="font-extrathin">Albums</div>
-                     <div className="text-sm font-medium"> {data[0][0].songname} </div>
+                     <div className="text-sm font-medium"> {data.Albummarketplace[0].songname} </div>
 
                      <div className="flex flex-col font-thin w-full">
 
@@ -205,21 +217,23 @@ export default function Dashboard({user}) {
                            <span>Price</span>
 
                             <span className="flex justify-center items-center">
-                              <span>{ Math.round( (data[0][0].cost / 10 )  * 10 ) / 10**18 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                              <span>{ Math.round( (data.Albummarketplace[0].cost / 10 )  * 10 ) / 10**18 } {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"}</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                             </span>
 
                         </div>
 
                      </div>
 
-                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={() => listforsale("Album", data[0][0].id)}>
+                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={() => listforsale("Album", data.Albummarketplace[0].id, data.Albummarketplace[0].index)}>
                         List for sale
                      </div>
 
                    </div>
 
                 </div>
-                ))
+              )
+              }
+             })
                 
               }
 
@@ -237,7 +251,7 @@ export default function Dashboard({user}) {
             <div className="flex flex-col gap-7 overflow-y-auto">
                 
                 {/* Items */}
-               { owned?.single?.length == 0
+               { ownedSingles?.length == 0
 
                 ?
 
@@ -247,7 +261,7 @@ export default function Dashboard({user}) {
 
                 :
 
-                 owned?.single?.map((data, index) => (
+                ownedSingles?.map((data, index) => (
 
                   <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5">
                     
@@ -272,7 +286,7 @@ export default function Dashboard({user}) {
 
                       </div>
 
-                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={ () => listforsale("Single", data.id)}>
+                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={ () => listforsale("Single", data.id, data.index)}>
                          List for sale
                       </div>
 
@@ -429,11 +443,9 @@ export async function  getServerSideProps(context) {
 
   const {params} = context;
   const {Dashboard} = params;
-  console.log(params);
 
   const user = await fetch(`https://streamifibackend.fly.dev/user/${Dashboard}`, { method: 'GET' });
   const userInfo = await user.json();
-  console.log(userInfo);
 
 
 

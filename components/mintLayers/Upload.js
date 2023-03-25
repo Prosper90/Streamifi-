@@ -56,6 +56,15 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
     //checks
     if(e.target.files[0].type === 'audio/mpeg') {
 
+      if(selected == "Single") {
+        if(allFiles.length === 2) {
+          setNotify(true);
+          setNotifyType("warn")
+          setNotifyMsg("Singles can only contain one song");
+          return;
+        }
+      }
+
       let file = e.target.files[0];
       let blob = file.slice(0, file.size, file.type); 
       let newFile = new File([blob], `${nameCount}.mp3`, {type: file.type});

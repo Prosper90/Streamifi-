@@ -92,7 +92,7 @@ export default function Topinfo() {
                   <div className="flex justify-center items-center rounded-[3px] text-center bg-[#1D1E22] w-[31.75px] h-[25px]">
                     <img src="/images/walletbalance.png" alt="" />
                   </div>
-                    <div className="text-white text-xs">{tokenbalance} ETH</div>
+                    <div className="text-white text-xs">{tokenbalance}  {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"} </div>
                 </div>
                 {/* Balance */}
 

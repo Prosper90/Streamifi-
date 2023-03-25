@@ -163,6 +163,8 @@ export default function Mint() {
 
           const imageuri = e.target.imageuri.value;
 
+          const copies = e.target.copies.value;
+
           //const price = e.target.priceone.value;
 
           const reformat = ethers.utils.parseEther(inputdataone);
@@ -197,7 +199,7 @@ export default function Mint() {
           try {
             setSmallLoad(true);
             const Contract = await getContract();
-            const mintAlbum = await Contract.addAlbum( songput, artistput, musiuris, imageuri, reformat );
+            const mintAlbum = await Contract.addAlbum( copies, songput, artistput, musiuris, imageuri, reformat );
             await mintAlbum.wait();
             setSmallLoad(false);          
           } catch (error) {

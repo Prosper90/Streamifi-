@@ -32,7 +32,11 @@ export default function Header() {
           userData,
           setUserdata,
           manualChain,
-          correctChain
+          correctChain,
+          setAlbums,
+          setSingle,
+          setUnfilteredAlbums,
+          setUnFilteredSingle
         } = useContext(Contexts);
 
     //router
@@ -43,6 +47,40 @@ export default function Header() {
 
 
 
+    /* global BigInt */
+    const getContract = async () => {
+      const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
+      const signer =  temporalProvider.getSigner();
+      return new ethers.Contract(ContractAddress, contractABI, signer);
+    }
+
+
+    const getAlbums = async () => {
+      const contract = await getContract();
+      const data = await contract.getAlbumsmarket();
+      console.log(data);
+      setUnfilteredAlbums(data);
+      
+      const goThrought = data.filter((data) => {
+        return data.Albummarketplace[0].sale === true;
+      });
+    
+      setAlbums(goThrought);
+      
+    }
+    
+    
+    const getSingle = async () => {
+      const contract = await getContract();
+      const data = await contract.getSinglesmarket();
+      setUnFilteredSingle(data);
+    
+      const goThrought = data.filter((data) => {
+        return data.sale === true;
+      });
+    
+      setSingle(goThrought);
+    }
 
 
     //connect
@@ -99,7 +137,6 @@ export default function Header() {
           }
           
           
-        
       }
 
 
@@ -124,12 +161,14 @@ export default function Header() {
        //persist
         if(address) {
             connect(provider);
+            getAlbums();
+            getSingle();
         }
         
 
           correctChain(manualChain);
         
-      }, [])
+      }, [address])
       
 
 

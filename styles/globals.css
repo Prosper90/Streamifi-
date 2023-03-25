@@ -204,3 +204,25 @@ input[type="range"]:active::-ms-thumb {
   transform: scale(1.2);
   background: #007db5;
 }
+
+
+.bar__progress {
+  flex: 1;
+  border-radius: 2px;
+  margin: 0 20px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  background: rgba(85, 60, 223, 0.53);
+}
+
+  .bar__progress__knob {
+    position: relative;
+    height: 16px;
+    width: 16px;
+    border: 1.5px solid #553CDF;
+    border-radius: 50%;
+    background-color: #553CDF;
+  }

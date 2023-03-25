@@ -3,6 +3,7 @@ import Contexts from '../context/contextclass';
 import { useRouter } from 'next/router';
 import { ethers } from 'ethers';
 import Link from 'next/link';
+import { chainBSC, chainPolygon, chainArbitrum } from '../utils/constants';
 
 export default function SingleMarket({single}) {
 
@@ -22,7 +23,8 @@ export default function SingleMarket({single}) {
           typeSelected,
           setTypeSelected,
           selectedSingle,
-          setSelectedSingle
+          setSelectedSingle,
+          manualChain
         } = useContext(Contexts);
   
   
@@ -36,6 +38,26 @@ export default function SingleMarket({single}) {
           router.push(`/purchase/${props.data.id}`);
       }
 
+ 
+      const getDate = (ama) => {
+        console.log(parseInt(BigInt(ama)))
+        const dateama = new Date(parseInt(BigInt(ama)) * 1000);
+  
+        const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
+        //For the date string part of it
+        const dateNumber = dateama.getDate();
+        const monthNumber = dateama.getMonth() + 1;
+        const yearNumber = dateama.getFullYear();
+        const dateString = `${dateNumber}/${monthNumber}/${yearNumber}`;
+        //const finalDateString = [dateString, timeString].join(" ");
+        return dateString;
+    
+     }
+
+
+      useEffect(() => {
+ 
+      }, [single])
 
   return (
     <>
@@ -57,13 +79,13 @@ export default function SingleMarket({single}) {
                     </div>
 
                     <div className="">
-                        <span>1st may 2023</span>
+                        <span> {getDate(data.date)} </span>
                     </div>
                   </div>
                   {/* Bottom */}
                   <div className="flex justify-between items-center">
                   <div className="flex justify-center items-center">
-                    <span>Price: 2 ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                    <span>Price: 2 {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"}</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                   </div>
 
                     <div className="">

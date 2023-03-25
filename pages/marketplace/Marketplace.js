@@ -11,50 +11,17 @@ export default function Marketplace() {
 
 //context info
 const {
-  manualChain
+  manualChain,
+  albums,
+  single,
 } = useContext(Contexts);
 
 /* global BigInt */
-const getContract = async () => {
-  const temporalProvider = await new ethers.providers.Web3Provider(window.ethereum);
-  const signer =  temporalProvider.getSigner();
-  return new ethers.Contract(ContractAddress, contractABI, signer);
-}
 
-const [albums, setAlbums] = useState();
-const [single, setSingle] = useState();
-
-
-const getAlbums = async () => {
-  const contract = await getContract();
-  const data = await contract.getAlbumsmarket();
-  //setAlbums(data);
-  
-  const goThrought = data.filter((data) => {
-    return data.Albummarketplace[0].sale === true;
-  });
-  console.log(goThrought);
-
-  setAlbums(goThrought);
-  
-}
-
-
-const getSingle = async () => {
-  const contract = await getContract();
-  const data = await contract.getSinglesmarket();
-
-  const goThrought = data.filter((data) => {
-    return data.sale === true;
-  });
-
-  setSingle(goThrought);
-}
 
 
 useEffect(() => {
-  getAlbums();
-  getSingle();
+
 }, [manualChain])
 
 

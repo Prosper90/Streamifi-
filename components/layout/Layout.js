@@ -36,6 +36,11 @@ export default function Layout({children}) {
     const [chainChanged, setChainchanged] = useState(false);
     //preloaders
     const[smallLoad, setSmallLoad] = useState(false);
+    //market data
+    const [albums, setAlbums] = useState();
+    const [single, setSingle] = useState();
+    const [unfilteredAlbums, setUnfilteredAlbums] = useState();
+    const [unFilteredsingle, setUnFilteredSingle] = useState();
 
 
 
@@ -196,9 +201,17 @@ export default function Layout({children}) {
     correctChain,
     //preloaders
     smallLoad,
-    setSmallLoad
+    setSmallLoad,
+    //market data
+    albums,
+    setAlbums,
+    single,
+    setSingle,
+    unfilteredAlbums,
+    setUnfilteredAlbums,
+    unFilteredsingle,
+    setUnFilteredSingle
     }} >
-
     {router.pathname === '/' ?
 
      <>
