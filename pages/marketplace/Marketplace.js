@@ -21,7 +21,7 @@ const {
 
 
 useEffect(() => {
-
+   console.log(single);
 }, [manualChain])
 
 

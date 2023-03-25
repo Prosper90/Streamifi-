@@ -41,8 +41,8 @@ export default function Dashboard({user}) {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
     console.log(owneddatas);
-    var arrAlbum = unfilteredAlbums.filter(item => owneddatas.album.indexOf(item[0].id) === -1);
-    var arrSingle = unFilteredsingle.filter(item => owneddatas.single.indexOf(item.id) === -1);
+    var arrAlbum =  unfilteredAlbums.filter((item) => owneddatas.album.includes(item.Albummarketplace[0].id)) ;
+    var arrSingle = unFilteredsingle.filter(({id}) => owneddatas.single.includes(id));
 
     setOwned(owneddatas);
     setOwnedAlbums(arrAlbum);
@@ -99,6 +99,7 @@ export default function Dashboard({user}) {
   useEffect(() => {
 
     getowned();
+    console.log(ownedSingles);
 
   }, [])
   
@@ -187,7 +188,7 @@ export default function Dashboard({user}) {
             <div className="mb-5">Albums Unlisted</div>
           
             {/* Left here scrolls */}
-            <div className="flex flex-col gap-7 overflow-y-auto h-[158px]">
+            <div className="flex flex-col gap-7 overflow-y-scroll overflow-x-hidden h-[158px]">
                 
               {/* Items */}
 
@@ -248,7 +249,7 @@ export default function Dashboard({user}) {
             <div className="mb-5">Single Unlisted</div>
           
             {/* Left here scrolls */}
-            <div className="flex flex-col gap-7 overflow-y-auto">
+            <div className="flex flex-col gap-7 overflow-y-scroll overflow-x-hidden h-[158px]">
                 
                 {/* Items */}
                { ownedSingles?.length == 0
@@ -266,7 +267,7 @@ export default function Dashboard({user}) {
                   <div className="flex justify-center items-start bg-[#211F27] text-xs p-3 rounded-[6px] w-[250px] gap-5">
                     
                     <div className="flex justify-start items-start  rounded-[3px] mr-3" style={{background: 'linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)', backdropFilter : 'blur(20px)'}}>
-                      <img src="/images/samplemain.png" alt="image" className='w-[70px] p-[3px]' />
+                      <img src={data.imguri} alt="image" className='w-[70px] p-[3px]' />
                     </div>
 
                     <div className="flex flex-col justify-center items-start gap-1">
@@ -275,11 +276,11 @@ export default function Dashboard({user}) {
 
                       <div className="flex flex-col font-thin w-full">
 
-                          <div className="flex justify-between w-full">
+                          <div className="flex justify-between w-full gap-5">
                             <span>Price</span>
 
                               <span className="flex justify-center items-center">
-                                <span> { Math.Round( (data.cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                                <span> { Math.round( (data.cost / 10 ** 18)  * 10 ) / 10 } ETH</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                               </span>
 
                           </div>

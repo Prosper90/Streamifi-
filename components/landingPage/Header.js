@@ -78,6 +78,7 @@ export default function Header() {
       const goThrought = data.filter((data) => {
         return data.sale === true;
       });
+      console.log(goThrought);
     
       setSingle(goThrought);
     }
@@ -164,9 +165,9 @@ export default function Header() {
             getAlbums();
             getSingle();
         }
-        
 
-          correctChain(manualChain);
+        
+        correctChain(manualChain);
         
       }, [address])
       

@@ -70,11 +70,13 @@ export default function Album() {
       const purchase = async (data, index) => {
         const contract = await getContract();
 
-        let value = id.split(',');
+        console.log(index);
+
+        let value = data.id.split(',');
         const idOne = parseInt(value[0]);
         const idTwo = parseInt(value[1]);
 
-        const costset = Math.round( (data.Albummarketplace.cost/10) * 10 ) / 10**18;
+        const costset = Math.round( (data.cost/10) * 10 ) / 10**18;
         
         //checks
         if(tokenbalance < costset ) {
@@ -84,9 +86,18 @@ export default function Album() {
             setNotifyMsg("Insufficient funds");
         }
 
+        try {
+          const buy = await contract.buysellAlbum(idOne, idTwo, index, {
+            gasLimit: 10000000,
+            nonce: 105 || undefined,
+          });
+          await buy.wait();          
+        } catch (error) {
+          setNotify(true);
+          setNotifyType("warn");
+          setNotifyMsg("User cancelled transaction");          
+        }
 
-        const buy = await contract.buysellAlbum(idOne, idTwo, index);
-        await buy.wait();
 
         //backend calls
 
@@ -195,14 +206,14 @@ export default function Album() {
 
             :
 
-             <div className="pt-5">
+             <div className="pt-5 md:w-[68%]">
 
                 <div className="font-light">
                   Album by {!reselect ? selectedAlbum.Albummarketplace[0]?.artist : reselect?.artist}
                 </div>
 
                 <div className="flex justify-between items-center pt-3 ">
-                  <div className="border-2 border-[#553CDF] rounded-[15px] p-2 font-light cursor-pointer" onClick={ () => purchase(!reselect ? selectedAlbum?.Albummarketplace[0] : reselect, !reselect ? selectedAlbum?.Albummarketplace[0].index : reselect.index ) }>Purchase now</div>
+                  <div className="border-2 border-[#553CDF] rounded-[15px] p-2 font-light cursor-pointer" onClick={ () => purchase(selectedAlbum?.Albummarketplace[0], selectedAlbum?.Albummarketplace[0].index) }>Purchase now</div>
 
                   <div className="">
                         <svg
@@ -261,12 +272,12 @@ export default function Album() {
               <div className="font-bold text-md">{!reselect ? selectedAlbum.Albummarketplace[0]?.songname : reselect?.songname}</div>
               <div className="flex flex-col p-1 ">
 
-              <div className="font-light text-sm flex justify-between p-1 w-[100%]">
+              <div className="font-light text-sm flex justify-between p-1 w-[250px] ">
                 <span>Current Owner</span>
                 <span>{ shortenAddress(seller) }</span>
               </div>
 
-              <div className="font-light text-sm flex justify-between p-1 w-[100%]">
+              <div className="font-light text-sm flex justify-between p-1 w-[250px]">
                 <span>Creator</span>
                 <span>{ shortenAddress(selectedAlbum.Albummarketplace[0]?.creator) }</span>
               </div>
@@ -302,7 +313,7 @@ export default function Album() {
         { selectedAlbum?.Albummarketplace.map((data, index) => (
 
             <div 
-                className="flex justify-between p-2 pr-8 rounded-[5px] items-center" 
+                className="flex justify-between p-2 pr-8 rounded-[5px] items-center cursor-pointer" 
                 style={{background: `${isSelected == index ? "rgba(217, 217, 217, 0.11)" :  "none" }`}} 
                 onClick={() => choosenData(data, index)}
                 key={index}

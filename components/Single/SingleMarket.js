@@ -35,15 +35,12 @@ export default function SingleMarket({single}) {
       const Select = (data) => {
           setTypeSelected("Single");
           setSelectedSingle(data);
-          router.push(`/purchase/${props.data.id}`);
+          router.push(`/purchase/${data.id}`);
       }
 
  
       const getDate = (ama) => {
-        console.log(parseInt(BigInt(ama)))
         const dateama = new Date(parseInt(BigInt(ama)) * 1000);
-  
-        const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
         //For the date string part of it
         const dateNumber = dateama.getDate();
         const monthNumber = dateama.getMonth() + 1;
@@ -63,10 +60,10 @@ export default function SingleMarket({single}) {
     <>
          {/* Items */}
          { single?.map((data, index) => (
-         <div className="bg-[#211F27] rounded-[5px]" key={index} onClick={() => Select(data)}>
+         <div className="bg-[#211F27] rounded-[5px] cursor-pointer" key={index} onClick={() => Select(data)}>
              {/* Top */}
               <div className="flex justify-center items-center rounded-[5px] p-2" style={{background: "linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)", backdropFilter: 'blur(20px)'}}>
-                <img src="/images/samplemain.png" alt="sample" className='w-[50%]' />
+                <img src={data.imguri} alt="sample" className='w-[50%]' />
               </div>
 
               {/* Bottom */}
@@ -74,8 +71,8 @@ export default function SingleMarket({single}) {
                   {/* Top */}
                   <div className="flex justify-between"> 
                     <div className="">
-                      <div>Eminem Monster</div>
-                      <div>Best of Eminem 2023 Album</div>
+                      <div>{data.songname}</div>
+                      <div>Best of {data.artist} 2023 Album</div>
                     </div>
 
                     <div className="">
@@ -85,7 +82,7 @@ export default function SingleMarket({single}) {
                   {/* Bottom */}
                   <div className="flex justify-between items-center">
                   <div className="flex justify-center items-center">
-                    <span>Price: 2 {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"}</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
+                    <span>Price: {Math.round( (data.cost / 10 )  * 10 ) / 10**18 } {manualChain == chainBSC ? "bnb" : manualChain == chainPolygon ? "matic" : "eth"}</span> <span className='pl-2'> <img src="/images/price.png" alt="" /> </span>
                   </div>
 
                     <div className="">

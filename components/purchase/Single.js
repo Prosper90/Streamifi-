@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import Link from 'next/link';
 import { shortenAddress } from '../utils/trauncate';
 import { useRouter } from 'next/router';
-import { chainBSC, chainPolygon } from '../utils/constants';
+import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../utils/constants';
 
 
 export default function Single() {
@@ -36,7 +36,7 @@ export default function Single() {
         const [bnblife, setBnblive] = useState();
   
         const router = useRouter()
-        const { id } = router.query;
+        const { Purchase } = router.query;
   
         //get contract instance
         const getContract = async () => {
@@ -50,11 +50,11 @@ export default function Single() {
         const checkOwner = async () => {
             const contract = await getContract();
   
-            let value = id.split(',');
+            let value = Purchase[0].split(',');
             const idOne = parseInt(value[0]);
             const idTwo = parseInt(value[1]);
   
-            const owner = await contract.owners(idOne, idTwo);
+            const owner = await contract.ownerOf(idOne, idTwo);
             setSeller(owner);
   
             if(owner === address) {
@@ -131,6 +131,22 @@ export default function Single() {
           var data = await response.json();
           setBnblive(data.USD);
          }
+
+         const getDate = (ama) => {
+          console.log(parseInt(BigInt(ama)))
+          const dateama = new Date(parseInt(BigInt(ama)) * 1000);
+    
+          const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
+          //For the date string part of it
+          const dateNumber = dateama.getDate();
+          const monthNumber = dateama.getMonth() + 1;
+          const yearNumber = dateama.getFullYear();
+          const dateString = `${dateNumber}/${monthNumber}/${yearNumber}`;
+          //const finalDateString = [dateString, timeString].join(" ");
+          return dateString;
+      
+       }
+
   
         useEffect(() => {
   
@@ -157,7 +173,11 @@ export default function Single() {
            {/* Changeable */}
            { owns ?
             
-            <Player currentSong={selectedSingle} />
+            <Player 
+              currentSong={selectedSingle.uri}
+              name={selectedSingle.songname}
+              artist={selectedSingle.artist} 
+            />
 
             :
 
@@ -215,7 +235,7 @@ export default function Single() {
 
           <div className="flex flex-col">
 
-            <div className="font-medium text-[20px] pt-2 pb-2">Eminem Monster</div>
+            <div className="font-medium text-[20px] pt-2 pb-2">{selectedSingle?.songname}</div>
             <div className="w-[70%]">
                Single by {selectedSingle?.artist} 
                 on chain sample more details on here
@@ -247,7 +267,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{selectedSingle?.date}</div>
+              <div className="">{getDate(selectedSingle?.date)}</div>
             </div>
 
             <div className="flex justify-between">
