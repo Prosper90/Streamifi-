@@ -143,8 +143,12 @@ export default function Single() {
          }
 
          const getDate = (ama) => {
-          const dateama = new Date(parseInt(BigInt(ama.date)) * 1000);
+          //console.log(parseInt(BigInt(ama)), "Ama session");
+          console.log(ama);
+          //const dateama = new Date(parseInt(BigInt(ama)) * 1000);
+          const dateama = new Date(ama * 1000);
     
+          //const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
           //For the date string part of it
           const dateNumber = dateama.getDate();
           const monthNumber = dateama.getMonth() + 1;
@@ -280,7 +284,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{getDate(selectedSingle)}</div>
+              <div className="">{ getDate( parseInt(BigInt(selectedSingle?.date)) ) }</div>
             </div>
 
             <div className="flex justify-between">

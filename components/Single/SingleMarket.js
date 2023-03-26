@@ -60,7 +60,7 @@ export default function SingleMarket({single}) {
     <>
          {/* Items */}
          { single?.map((data, index) => (
-         <div className="bg-[#211F27] rounded-[5px] cursor-pointer w-[100%]" key={index} onClick={() => Select(data)}>
+         <div className="bg-[#211F27] rounded-[5px] cursor-pointer w-[100%] md:w-[43%]" key={index} onClick={() => Select(data)}>
              {/* Top */}
               <div className="flex justify-center items-center rounded-[5px] p-2" style={{background: "linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)", backdropFilter: 'blur(20px)'}}>
                 <img src={data.imguri} alt="sample" className='w-[50%]' />
