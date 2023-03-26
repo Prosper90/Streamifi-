@@ -133,10 +133,10 @@ export default function Single() {
          }
 
          const getDate = (ama) => {
-          console.log(parseInt(BigInt(ama)))
+          //console.log(parseInt(BigInt(ama)))
           const dateama = new Date(parseInt(BigInt(ama)) * 1000);
     
-          const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
+          //const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
           //For the date string part of it
           const dateNumber = dateama.getDate();
           const monthNumber = dateama.getMonth() + 1;
@@ -243,18 +243,18 @@ export default function Single() {
 
           </div>
 
-          <div className="flex bg-[#553CDF] p-3 rounded-[10px] w-[65%]">
+          <div className="flex bg-[#553CDF] p-3 rounded-[10px] w-[100%]">
             {/* <div className="">{!reselect ? selectedAlbum.artist : reselect.artist}</div> */}
             <div className="pl-1">
               <div className="font-bold text-md">{selectedSingle?.songname}</div>
               <div className="flex flex-col p-1 ">
 
-              <div className="font-light text-sm flex justify-between p-1">
+              <div className="font-light text-sm flex justify-between w-[250px]">
                 <span>Current Owner</span>
                 <span>{ shortenAddress(seller) }</span>
               </div>
 
-              <div className="font-light text-sm flex justify-between p-1">
+              <div className="font-light text-sm flex justify-between w-[250px]">
                 <span>Creator</span>
                 <span>{ shortenAddress(selectedSingle?.creator) }</span>
               </div>
@@ -267,7 +267,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{getDate(selectedSingle?.date)}</div>
+              <div className="">{getDate(selectedSingle.date)}</div>
             </div>
 
             <div className="flex justify-between">

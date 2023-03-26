@@ -290,7 +290,7 @@ export default function Album() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{!reselect ? getDate(selectedAlbum.Albummarketplace[0]?.date) : getDate(reselect?.date) }</div>
+              <div className="">{!reselect ? getDate(selectedAlbum.Albummarketplace[0]?.date) : getDate(reselect.date) }</div>
             </div>
 
             <div className="flex justify-between">
