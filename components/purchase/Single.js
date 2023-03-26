@@ -267,7 +267,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{getDate(selectedSingle.date)}</div>
+              <div className=""></div>
             </div>
 
             <div className="flex justify-between">
