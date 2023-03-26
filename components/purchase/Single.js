@@ -284,7 +284,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className="">{ getDate( parseInt(BigInt(selectedSingle?.date)) ) }</div>
+              <div className="">{ selectedSingle && getDate( parseInt(BigInt(selectedSingle?.date)) ) }</div>
             </div>
 
             <div className="flex justify-between">
