@@ -35,6 +35,7 @@ export default function Album() {
       const [bnblife, setBnblive] = useState();
  
       const [isSelected, setSelected] = useState(0);
+      const [show, setShow] = useState(false);
 
       const router = useRouter()
       const { Purchase } = router.query;
@@ -95,7 +96,7 @@ export default function Album() {
         } catch (error) {
           setNotify(true);
           setNotifyType("warn");
-          setNotifyMsg("User cancelled transaction");          
+          setNotifyMsg("Transaction cancelled");          
         }
 
 
@@ -104,7 +105,7 @@ export default function Album() {
         //backend route https://streamifibackend.fly.dev/
         //update seller
         const valueAmount = (costset/bnblife) * 1;
-        const updateSeller = await fetch(`https://streamifibackend.fly.dev/sold/${seller}`, 
+        const updateSeller = await fetch(`https://streamifibackend.fly.dev/user/sold/${seller}`, 
             {
             method: 'POST',   
             headers: {
@@ -117,7 +118,7 @@ export default function Album() {
         await updateSeller.json();
 
         //update buyer
-        const updateBuyer = await fetch(`https://streamifibackend.fly.dev/buy/${address}`, 
+        const updateBuyer = await fetch(`https://streamifibackend.fly.dev/user/buy/${address}`, 
             {
             method: 'POST',   
             headers: {
@@ -167,6 +168,11 @@ export default function Album() {
         setReselect(data);
       }
 
+      const showDetails = () => {
+        setShow(!show);
+      }
+
+
 
       useEffect(() => {
 
@@ -186,10 +192,11 @@ export default function Album() {
       <div className= {`relative bg-[#000] w-[100%] p-5 ${!owns ? "md:grid md:grid-cols-3 gap-3" : 'md:grid md:grid-cols-3 gap-3' } rounded-[5px] text-xs`}>
 
         {/* For mobile */}
-        <div className=" absolute w-[80px] text-center text-[#00ff00] right-3 border-2 border-[#00FF00] rounded-[15px] p-2 font-light cursor-pointer md:hidden">Details</div>
+        <div className=" absolute w-[80px] text-center text-[#00ff00] right-3 border-2 border-[#00FF00] rounded-[15px] p-2 font-light cursor-pointer md:hidden"
+         onClick={() => showDetails() }> { !show ? "Details" : "Music" } </div>
 
         {/* Left */}
-        <div className={`text-white flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`} >
+        <div className={` ${show && "hidden"} text-white flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`} >
           {/* Top */}
           <div className="flex justify-center items-center rounded-[10px] p-2 bg-[#D9D9D9] w-[150px]">
               <img src={!reselect ? selectedAlbum.Albummarketplace[0]?.imguri : reselect?.imguri} alt="sample" className='w-[70%]' />
@@ -206,7 +213,7 @@ export default function Album() {
 
             :
 
-             <div className="pt-5 md:w-[68%]">
+             <div className="pt-5 w-[68%]">
 
                 <div className="font-light">
                   Album by {!reselect ? selectedAlbum.Albummarketplace[0]?.artist : reselect?.artist}
@@ -253,7 +260,7 @@ export default function Album() {
 
 
         {/* Right */}
-        <div className="hidden md:flex md:flex-col md:gap-3 md:text-white md:font-light md:text-xs">
+        <div className={` ${!show && "hidden"} md:flex md:flex-col md:gap-3 md:text-white md:font-light md:text-xs`}>
           <span>NFT Music</span>
 
           <div className="flex flex-col">

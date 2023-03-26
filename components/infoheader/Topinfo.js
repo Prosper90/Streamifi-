@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import Contexts from '../context/contextclass';
 import { shortenAddress } from '../utils/trauncate';
 import { ethers } from 'ethers';
@@ -17,6 +17,9 @@ export default function Topinfo() {
       setmanualChain,
       correctChain
     } = useContext(Contexts);
+
+    //ref
+    const myRef = useRef(null);
     
     let chainlinks = {
       bsc: "/images/binance.svg",
@@ -26,6 +29,7 @@ export default function Topinfo() {
 
   const [selectedChain, setSelectedChain] = useState("/images/binance.svg");
   const [choose, setChoose] = useState(false);
+
 
   const change = (data, id) => {
     setSelectedChain(data);
@@ -57,6 +61,26 @@ export default function Topinfo() {
     if(!tokenbalance) {
       getBalance();
     }
+  
+
+    const handleClickOutside = (event) => {
+      //console.log(myRef);
+     if(myRef.current === null){
+  
+    } else if( Object.keys(myRef).length !== 0 ) {
+    
+      if (!myRef.current.contains(event.target)) {
+        setChoose(false);
+      }
+  
+    }
+  
+  
+    };
+    
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
 
   }, [choose, manualChain]);
   
@@ -97,7 +121,7 @@ export default function Topinfo() {
                 {/* Balance */}
 
                 {/* chains */}
-                <div className={`relative flex flex-col justify-center items-center cursor-pointer ${choose && "bg-[#000] w-[40px]"}`}  >
+                <div className={`relative flex flex-col justify-center items-center cursor-pointer ${choose && "bg-[#000] w-[40px]"}`} ref={myRef}  >
 
                   <div className="bg-[#000] p-1 rounded-[100%]" onClick={() => setChoose(true)}>
                     <img src={selectedChain} alt="chain" />

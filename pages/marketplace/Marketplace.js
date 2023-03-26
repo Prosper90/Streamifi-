@@ -50,9 +50,7 @@ useEffect(() => {
         <div className="flex flex-col gap-3">
           <div className="">On Sale Singles</div>
 
-          <div className="flex justify-center gap-3 ">
-         
-          
+          <div className="flex justify-center items-center gap-3">
           { single?.length !== 0 ?
 
                 <SingleMarket single={single} />

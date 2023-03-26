@@ -34,6 +34,7 @@ export default function Single() {
         const [owns, setOwns] = useState(false);
         const [seller, setSeller] = useState();
         const [bnblife, setBnblive] = useState();
+        const [show, setShow] = useState(false);
   
         const router = useRouter()
         const { Purchase } = router.query;
@@ -81,16 +82,25 @@ export default function Single() {
               setNotifyMsg("Insufficient funds");
           }
   
-  
-          const buy = await contract.buysellSingle(idOne, idTwo, index);
-          await buy.wait();
+          try {
+              const buy = await contract.buysellSingle(idOne, idTwo, index, {
+              gasLimit: 10000000,
+              nonce: 105 || undefined,
+            });
+            await buy.wait();            
+          } catch (error) {
+            setNotify(true);
+            setNotifyType("warn");
+            setNotifyMsg("Transaction cancelled");                 
+          }
+
   
           //backend calls
   
           //backend route https://streamifibackend.fly.dev/
           //update seller
           const valueAmount = (costset/bnblife) * 1;
-          const updateSeller = await fetch(`https://streamifibackend.fly.dev/sold/${seller}`, 
+          const updateSeller = await fetch(`https://streamifibackend.fly.dev/user/sold/${seller}`, 
               {
               method: 'POST',   
               headers: {
@@ -103,7 +113,7 @@ export default function Single() {
           await updateSeller.json();
   
           //update buyer
-          const updateBuyer = await fetch(`https://streamifibackend.fly.dev/buy/${address}`, 
+          const updateBuyer = await fetch(`https://streamifibackend.fly.dev/user/buy/${address}`, 
               {
               method: 'POST',   
               headers: {
@@ -133,10 +143,8 @@ export default function Single() {
          }
 
          const getDate = (ama) => {
-          //console.log(parseInt(BigInt(ama)))
-          const dateama = new Date(parseInt(BigInt(ama)) * 1000);
+          const dateama = new Date(parseInt(BigInt(ama.date)) * 1000);
     
-          //const timeString = dateama.toUTCString().split(" ")[4]; //This will return your 17:50:00
           //For the date string part of it
           const dateNumber = dateama.getDate();
           const monthNumber = dateama.getMonth() + 1;
@@ -147,6 +155,10 @@ export default function Single() {
       
        }
 
+
+       const showDetails = () => {
+        setShow(!show);
+      }
   
         useEffect(() => {
   
@@ -161,10 +173,11 @@ export default function Single() {
       <div className= {`relative bg-[#000] w-[100%] p-5 ${!owns ? "md:grid md:grid-cols-3 gap-3" : 'md:grid md:grid-cols-3 gap-3' } rounded-[5px] text-xs`}>
 
         {/* For mobile */}
-        <div className=" absolute w-[80px] text-center text-[#00ff00] right-3 border-2 border-[#00FF00] rounded-[15px] p-2 font-light cursor-pointer md:hidden">Details</div>
+        <div className=" absolute w-[80px] text-center text-[#00ff00] right-3 border-2 border-[#00FF00] rounded-[15px] p-2 font-light cursor-pointer md:hidden"
+          onClick={() => showDetails() }> { !show ? "Details" : "Music" } </div>
 
         {/* Left */}
-        <div className={`text-white w-full flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`} >
+        <div className={` ${show && "hidden"} text-white flex flex-col justify-center ${owns ? 'items-center' : 'items-start'}`}  >
           {/* Top */}
           <div className="flex justify-center items-center rounded-[10px] p-2 bg-[#D9D9D9] w-[150px]">
               <img src={selectedSingle?.imguri} alt="sample" className='w-[70%]' />
@@ -181,7 +194,7 @@ export default function Single() {
 
             :
 
-             <div className="pt-5">
+             <div className="pt-5 w-[68%]">
 
                 <div className="font-light">
                   Single by {selectedSingle?.artist} 
@@ -230,7 +243,7 @@ export default function Single() {
 
 
         {/* Right */}
-        <div className="hidden md:flex md:flex-col md:gap-3 md:text-white md:font-light md:text-xs">
+        <div className={` ${!show && "hidden"} md:flex md:flex-col md:gap-3 md:text-white md:font-light md:text-xs`}>
           <span>NFT Music</span>
 
           <div className="flex flex-col">
@@ -267,7 +280,7 @@ export default function Single() {
 
             <div className="flex justify-between">
               <div className="">Release Date:</div>
-              <div className=""></div>
+              <div className="">{getDate(selectedSingle)}</div>
             </div>
 
             <div className="flex justify-between">
