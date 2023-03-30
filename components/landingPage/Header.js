@@ -57,30 +57,50 @@ export default function Header() {
 
     const getAlbums = async () => {
       const contract = await getContract();
-      const data = await contract.getAlbumsmarket();
-      console.log(data);
-      setUnfilteredAlbums(data);
-      
-      const goThrought = data.filter((data) => {
-        return data.Albummarketplace[0].sale === true;
-      });
-    
-      setAlbums(goThrought);
+      try {
+        const data = await contract.getAlbumsmarket();
+        console.log(data);
+        setUnfilteredAlbums(data);
+  
+        if(!data) {
+          console.log("No data");
+        } else {
+          const goThrought = data.filter((data) => {
+            return data.Albummarketplace[0].sale === true;
+          });
+        
+          setAlbums(goThrought);
+        }
+      } catch (error) {
+        console.log("error");
+      }
+
       
     }
     
     
     const getSingle = async () => {
       const contract = await getContract();
-      const data = await contract.getSinglesmarket();
-      setUnFilteredSingle(data);
+      try {
+        const data = await contract.getSinglesmarket();
+        setUnFilteredSingle(data);
     
-      const goThrought = data.filter((data) => {
-        return data.sale === true;
-      });
-      console.log(goThrought);
+        if(!data) {
+          console.log("No data");
+        } else {
+          const goThrought = data.filter((data) => {
+            return data.sale === true;
+          });
+          console.log(goThrought);
+        
+          setSingle(goThrought);
+        }
+        
+      } catch (error) {
+        console.log("error");
+      }
+
     
-      setSingle(goThrought);
     }
 
 
@@ -164,10 +184,11 @@ export default function Header() {
             connect(provider);
             getAlbums();
             getSingle();
+            correctChain(manualChain);
         }
 
         
-        correctChain(manualChain);
+
         
       }, [address])
       

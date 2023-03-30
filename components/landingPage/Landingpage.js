@@ -149,11 +149,11 @@ export default function Landingpage({users}) {
 
 
       {/* Section Four */}
-      <div className="bg-[#0C0F16] relative md:h-[100%] ">
+      <div className="bg-[#0C0F16] relative h-[100dvh] ">
 
         <div className="p-8 bg-[url('/images/NFTCOLLECTIONS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
 
-          <div className="flex flex-col justify-center items-center w-[100%] p-5 mt-10">
+          <div className="flex flex-col justify-center items-center w-[100%] p-5 mt-[100px]">
 
             <div className="text-[24px] font-semibold text-[#E81CFF] my-5 mb-8">NFT Collections</div>
 
@@ -173,7 +173,7 @@ export default function Landingpage({users}) {
       {/* Section Five */}
       <div className=" bg-[#0C0F16] flex pt-44 md:pt-0 justify-center items-center h-auto md:h-auto">
 
-        <div className="relative bg-[url('/images/ROADMAP.png')] flex-col bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
+        <div className="relative mt-20 bg-[url('/images/ROADMAP.png')] flex-col bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
           <div className="flex flex-col items-center">
             <h1 className='tracking-[.5em] md:text-xl text-lg font-sans font-normal text-[#E81CFF]'>GOALS AND PLANS</h1>
             <h1 className='tracking-[.1em] md:text-5xl text-xl mt-3 font-sans font-bold '>ROADMAP</h1>
@@ -240,9 +240,9 @@ export default function Landingpage({users}) {
       {/* Section six */}
       <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh] md:h-[100%]">
 
-        <div className="p-8 md:mt-[80px] bg-[url('/images/TOKENOMICS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
+        <div className="p-8 md:mt-[150px] bg-[url('/images/TOKENOMICS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center w-full ">
 
-          <div className="flex flex-col justify-center items-center p-0 mt-10">
+          <div className="flex flex-col justify-center items-center p-0">
 
             <ChatTokenOmonics/>
 
@@ -277,7 +277,7 @@ export default function Landingpage({users}) {
       {/* Section Eight */}
       <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh] pb-[336px] md:h-[100%]">
 
-        <div className=" p-8 absolute md:mt-[80px] bg-[url('/images/SOCIALS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center gap-10 flex-wrap w-full">
+        <div className="  p-8 absolute md:mt-[250px] bg-[url('/images/SOCIALS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center gap-10 flex-wrap w-full">
  
            <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
               <div className="flex justify-center items-center">

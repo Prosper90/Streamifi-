@@ -116,11 +116,12 @@ export default function Navigation() {
                     <p className='sm:hidden md:block text-base'>Dashboard</p>
                  </div>
                 </Link>
-
+       
+               <Link href="/playlist/Playlist">
                 <div className="flex gap-3">
                     <div className="icon">
                       <svg
-                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns="http://www.w3.org/2000/svg" 
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth="1.5"
@@ -141,7 +142,7 @@ export default function Navigation() {
                     </div>
                     <p className='sm:hidden md:block text-base'>Playlist</p>
                 </div>
-
+               </Link>
    
           </div>          
 

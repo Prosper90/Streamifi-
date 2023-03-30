@@ -11,15 +11,17 @@ module.exports = {
       },
       color: {
         streamwhite: "#FFFFFF",
+        boderget: "rgba(255, 255, 255, 0.54)"
       },
       backgroundColor: {
         home: "#101012",
         topbg: "#18181C",
         buttonbg: "#553CDF",
+        covertwo: "rgba(217, 217, 217, 0.11)",
+        mirror: "rgba(255, 255, 255, 0.15)"
       },
       shadow: {
-        fomoshadow: "0 0 2px #690069, 0 0 25px #c0c, 0 0 5px #f0f",
-        fomotextshadow: "0 0 10px #38f000, 0 0 10px #008020"
+        boxshadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
       }
     },
   },

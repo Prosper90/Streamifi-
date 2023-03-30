@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import Contexts from '../context/contextclass';
-import ClipLoader from "react-spinners/ClipLoader";
+import MoonLoader from "react-spinners/MoonLoader";
 
 
 export default function Smallpreloader() {
@@ -13,7 +13,7 @@ export default function Smallpreloader() {
 
   return (
     <div className='absolute flex justify-center items-center p-4 opacity-25 w-[100%] h-[100%]' style={{backgroundColor : 'rgb(0, 0, 0, 5)'}}>
-       <ClipLoader
+       <MoonLoader
             loading={smallLoad}
             color={colorAdd}
             size={70}

@@ -40,7 +40,6 @@ export default function Dashboard({user}) {
   const getowned = async () => {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
-    console.log(owneddatas);
     var arrAlbum =  unfilteredAlbums.filter((item) => owneddatas.album.includes(item.Albummarketplace[0].id)) ;
     var arrSingle = unFilteredsingle.filter(({id}) => owneddatas.single.includes(id));
 
@@ -51,12 +50,7 @@ export default function Dashboard({user}) {
 
 
 
-  const listforsale = async (type, ids, index) => {
-
-    let value = ids.split(',');
-    const idOne = parseInt(value[0]);
-    const idTwo = parseInt(value[1]);
-    console.log(type, ids);
+  const listforsale = async (type, index) => {
 
 
       //sell from the contract
@@ -65,7 +59,7 @@ export default function Dashboard({user}) {
         try {
           console.log("called album");
           const Contract = await getContract();
-          const setforsaleAlbum = await Contract.Albumforsale(idOne, idTwo, index);
+          const setforsaleAlbum = await Contract.Albumforsale(index);
           await setforsaleAlbum.wait(); 
 
         } catch (error) {
@@ -79,7 +73,7 @@ export default function Dashboard({user}) {
         try {
           console.log("called singles");
           const Contract = await getContract();
-          const setforsaleSingle = await Contract.singleforsale(idOne, idTwo, index);
+          const setforsaleSingle = await Contract.singleforsale(index);
           await setforsaleSingle.wait();
         } catch (error) {
           setNotify(true);
@@ -99,7 +93,6 @@ export default function Dashboard({user}) {
   useEffect(() => {
 
     getowned();
-    console.log(ownedSingles);
 
   }, [])
   
@@ -225,7 +218,7 @@ export default function Dashboard({user}) {
 
                      </div>
 
-                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={() => listforsale("Album", data.Albummarketplace[0].id, data.Albummarketplace[0].index)}>
+                     <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={() => listforsale("Album", data.Albummarketplace[0].index)}>
                         List for sale
                      </div>
 
@@ -287,7 +280,7 @@ export default function Dashboard({user}) {
 
                       </div>
 
-                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={ () => listforsale("Single", data.id, data.index)}>
+                      <div className="button bg-[#553CDF] p-2 rounded-[3px] cursor-pointer w-full text-center" onClick={ () => listforsale("Single", data.index)}>
                          List for sale
                       </div>
 

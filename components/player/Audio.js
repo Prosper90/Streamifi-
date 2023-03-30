@@ -1,13 +1,36 @@
-import React from "react";
-
+import React, {useState, useEffect} from "react";
 import Play from "./Play";
 import Pause from "./Pause";
 import Bar from "./Bar";
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
+import Playtwo from "./Playtwo";
+import Pausetwo from "./Pausetwo";
+
 
 import useAudioPlayer from './useAudioPlayer';
 
-function Audio({song}) {
+function Audio({song, route, setSongEnd}) {
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
+  const [mobile, setMobile] = useState();
+
+
+  function formatDurationTwo(duration) {
+    return moment
+      .duration(duration, "seconds")
+      .format("mm:ss", { trim: false });
+  }
+
+
+  useEffect(() => {
+    function handleResize() {
+      setMobile(window.innerWidth);
+      setSongEnd(formatDurationTwo(duration));
+    }
+      //console.log(window.innerWidth, "innerWidth called");
+      window.addEventListener('resize', handleResize);
+      setMobile(window.innerWidth);
+  }, [mobile]);
 
   return (
 
@@ -24,7 +47,9 @@ function Audio({song}) {
         {/* thumb 
             <input type='range' defaultValue='0' className="thumb cursor-pointer" ref={rangeRef} onChange={changeRange} />
         */}
-        <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
+        { (route === "/playlist/Playlist" && mobile > 640) &&
+          <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
+        }
             {/* <input type="range"   step={0.01} className='range'  /> */}
             <audio id="audio" src={song} preload='metadata' ></audio>
         </div>
@@ -45,13 +70,32 @@ function Audio({song}) {
             </svg>                
         </div>
         
-        
-        { playing ?
+        { (route === "/playlist/Playlist" && mobile > 640)
 
-          <Pause handleClick={() => setPlaying(false)} />  :
-          <Play handleClick={() => setPlaying(true)} />
-               
+          ?
+          
+          <>
+          { playing ?
+
+            <Pause handleClick={() => setPlaying(false)} />  :
+            <Play handleClick={() => setPlaying(true)} />
+                 
+          }
+          </>
+
+          :
+
+          <>
+          { playing ?
+
+            <Pausetwo handleClick={() => setPlaying(false)} />  :
+            <Playtwo handleClick={() => setPlaying(true)} />
+                 
+          }
+          </>
+
         }
+
 
 
             <div className="cursor-pointer" >

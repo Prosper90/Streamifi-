@@ -125,16 +125,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
         "name": "_index",
         "type": "uint256"
       }
@@ -236,35 +226,6 @@
       }
     ],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "eachSong",
-        "type": "uint256"
-      }
-    ],
-    "name": "albumSongTokenURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -372,12 +333,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -396,7 +352,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -415,12 +371,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -439,12 +390,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -463,12 +409,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -477,64 +418,71 @@
       {
         "components": [
           {
-            "internalType": "string",
-            "name": "musictype",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "songname",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "artist",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "uri",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "imguri",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "id",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "sale",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "cost",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "creator",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "date",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "index",
-            "type": "uint256"
+            "components": [
+              {
+                "internalType": "string",
+                "name": "musictype",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "songname",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "artist",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "imguri",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "id",
+                "type": "string"
+              },
+              {
+                "internalType": "bool",
+                "name": "sale",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "cost",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "creator",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "date",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "index",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct Streamifi.Song[]",
+            "name": "Albummarketplace",
+            "type": "tuple[]"
           }
         ],
-        "internalType": "struct Streamifi.Song[]",
-        "name": "",
-        "type": "tuple[]"
+        "internalType": "struct Streamifi.Albummarketplace",
+        "name": "albummarket",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -634,12 +582,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
+        "name": "_index",
         "type": "uint256"
       }
     ],
@@ -816,6 +759,37 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "ownList",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string[]",
+            "name": "SinglePlayList",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "AlbumPlayList",
+            "type": "string[]"
+          }
+        ],
+        "internalType": "struct Streamifi.Playlist",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "firstId",
         "type": "uint256"
@@ -904,40 +878,6 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
-        "type": "uint256"
-      }
-    ],
-    "name": "singleSongTokenURI",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "firstId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "secondId",
-        "type": "uint256"
-      },
       {
         "internalType": "uint256",
         "name": "_index",

@@ -154,10 +154,9 @@ export default function Layout({children}) {
         window.addEventListener('resize', handleResize);
         setPageWidth(window.innerWidth);
 
-        console.log(router.pathname, "pathname");
 
 
-    }, [pageWidth])
+    }, [pageWidth]);
 
 
 
