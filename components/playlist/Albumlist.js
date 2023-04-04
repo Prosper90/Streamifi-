@@ -1,11 +1,15 @@
 import React from 'react'
 
 export default function Albumlist({albumList, playSong}) {
+
   return (
-    <div className="flex justify-start gap-4 items-center overflow-x-auto overflow-y-hidden w-[70%]">
+    <div className="flex justify-start gap-4 items-center overflow-hidden overflow-x-auto w-[600px] cursor-pointer h-[200px]">
       { 
-        albumList?.map((data) => (
-          <div className="bg-transparent rounded-[5px] cursor-pointer" key={index} onClick={() => playSong(data)} >
+      albumList?.length !== 0 ?
+       <>
+       {
+        albumList?.map((data, index) => (
+          <div className="bg-transparent rounded-[5px] cursor-pointer w-[100%]" key={index} onClick={() => playSong(data)} >
           {/* Top */}
           <div className=" relative flex justify-center items-center rounded-[5px] p-2" style={{background: "linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)", backdropFilter: 'blur(20px)'}}>
             <img src={data.imguri} alt="sample" className='w-[70%]' />
@@ -36,16 +40,19 @@ export default function Albumlist({albumList, playSong}) {
           {/* Bottom */}
           <div className="flex flex-col gap-3 p-3 text-[10px]">
               {/* Top */}
-              <div className="flex justify-between "> 
-                <div className="">
-                  <div>{data.songname}</div>
-                  <div className='font-thin text-xs'> {data.artist} </div>
-                </div>
+              <div className="flex flex-col"> 
+                  <div className='font-thin text-md' >{data.songname}</div>
+                  <div className=' font-extralight text-[10px] whitespace-nowrap'> {data.artist} </div>
               </div>
       
             </div>
         </div>
         ))
+        }
+        </>
+        :
+        
+        <div className="">Empty collection</div>
 
       }
     </div>

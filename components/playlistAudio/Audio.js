@@ -2,23 +2,46 @@ import React, {useState, useEffect} from "react";
 import Play from "./Play";
 import Pause from "./Pause";
 import Bar from "./Bar";
+import Playtwo from "./Playtwo";
+import Pausetwo from "./Pausetwo";
 import { useRouter } from 'next/router';
 
 
 import useAudioPlayer from './useAudioPlayer';
 
-function Audio({song}) {
-  const { curTime, duration, playing, setPlaying, setClickedTime} = useAudioPlayer();
+function Audio({song, setSongEnd}) {
+  const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
+  const [mobile, setMobile] = useState();
 
   //router
   const router = useRouter();
 
+
+ 
 
   const callPlay = (value) => {
     setPlaying(value);
     console.log("audio "+value+" called")
   }
 
+
+  useEffect(() => {
+
+    console.log("hello called");
+    function handleResize() {
+      setMobile(window.innerWidth);
+    }
+      //console.log(window.innerWidth, "innerWidth called");
+      window.addEventListener('resize', handleResize);
+      setMobile(window.innerWidth);
+     
+     
+      if(mobile < 640 ) {
+        setSongEnd(duration);
+      }
+    
+      
+  }, [mobile]);
 
   return (
 
@@ -35,9 +58,13 @@ function Audio({song}) {
         {/* thumb 
             <input type='range' defaultValue='0' className="thumb cursor-pointer" ref={rangeRef} onChange={changeRange} />
         */}
- 
+        {  router.pathname == "/playlist/Playlist" && mobile > 640 ?
+           <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
+          :
+          <div className="hidden">
             <Bar curTime={curTime} duration={duration} onTimeUpdate={(time) => setClickedTime(time)}/>
-
+          </div>
+        }
             {/* <input type="range"   step={0.01} className='range'  /> */}
             <audio id="audio" src={song} preload='metadata' ></audio>
         </div>
@@ -57,13 +84,42 @@ function Audio({song}) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z" />
             </svg>                
         </div>
+        
+        { (router.pathname !== "/playlist/Playlist" && mobile > 640)
+
+          ?
           
+          <>
+          { playing ?
+
+            <Pause callPlay={callPlay} /> :
+            <Play callPlay={callPlay} />
+                 
+          }
+          </>
+
+          : (router.pathname == "/playlist/Playlist" && mobile > 640) ?
+
+              <>
               { playing ?
 
                 <Pause callPlay={callPlay} />  :
                 <Play callPlay={callPlay} />
                     
               }
+              </>
+          :
+
+          <>
+          { playing ?
+
+            <Pausetwo callPlay={callPlay} />  :
+            <Playtwo callPlay={callPlay} />
+                 
+          }
+          </>
+
+        }
 
 
 

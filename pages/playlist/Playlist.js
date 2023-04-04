@@ -2,13 +2,15 @@ import React, {useState, useEffect, useContext} from 'react';
 import Albumlist from '../../components/playlist/Albumlist';
 import Singlelist from '../../components/playlist/Singlelist';
 import Recent from '../../components/playlist/Recent';
-import Player from '../../components/player/Player';
+import Player from '../../components/playlistAudio/Player';
 import Updates from '../../components/playlist/Updates';
 import Contexts from '../../components/context/contextclass';
 import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../../components/utils/constants';
 import { ethers } from 'ethers';
 import { useRouter } from 'next/router';
-import  Audio  from '../../components/player/Audio';
+import  Audio  from '../../components/playlistAudio/Audio';
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
 
 
 export default function Playlist() {
@@ -28,7 +30,6 @@ export default function Playlist() {
     } = useContext(Contexts);
 
 
-  const [playlist] = useState(true);
   const [albumList, setAlbumList] = useState();
   const [singleList, setSingleList] = useState();
 
@@ -37,7 +38,7 @@ export default function Playlist() {
   const [songend, setSongEnd] = useState();
 
   //selected music
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(null);
 
   //get contract instance
   const getContract = async () => {
@@ -52,14 +53,21 @@ export default function Playlist() {
     const contract = await getContract();
 
     const ownedlists = await contract.ownList(address);
+    console.log(ownedlists, "ownedlists");
     var arrAlbum =  unfilteredAlbums.filter((item) => ownedlists.AlbumPlayList.includes(item.Albummarketplace[0].id)) ;
     var arrSingle = unFilteredsingle.filter(({id}) => ownedlists.SinglePlayList.includes(id));
+
+    console.log(arrAlbum, "albums unfiltered");
+
 
     //now filter arrAlbum again and merge them
     const values = [];
     arrAlbum.map((data) => {
-      values.push(data.Albummarketplace);
+      data.Albummarketplace.map((dataTwo) => {
+        values.push(dataTwo);
+      })
     });
+    console.log(values);
     //end of arr filter
     if(values.length !== 0) {
         setSelected(values[0]);
@@ -77,12 +85,20 @@ export default function Playlist() {
   }
 
 
+  function formatDurationTwo(duration) {
+    return moment
+      .duration(duration, "seconds")
+      .format("mm:ss", { trim: false });
+  }
+
+
 
   useEffect(() => {
 
-    getowned();
+      getowned();
 
-  }, [])
+
+  }, [selected])
 
   
 
@@ -91,20 +107,17 @@ export default function Playlist() {
 
 
       {/* Left */}
-      <div className=" col-span-4 md:col-span-2 grid grid-row-3 md:grid-rows-2 gap-3 ">
+      <div className=" col-span-4 md:col-span-2 grid grid-row-3 gap-3 ">
 
          {/* First layer */}
         <div className="rounded-[10px] bg-transparent flex flex-col justify-center  p-5  md:px-5 gap-3 items-start h-full md:h-[70%] ">
           <div className="font-semibold text-sm">Albums Top</div>
           
-          {albumList?.length == 0 ?
-             <div className="">Empty collection</div>
-          :
+
             <Albumlist 
               albumList={albumList}
               playSong={playSong}
             />
-          }
 
         </div>
 
@@ -113,14 +126,12 @@ export default function Playlist() {
          <div className="rounded-[10px] bg-transparent flex flex-col justify-center  p-5  md:px-5 gap-3 items-start h-full md:h-[70%] ">
           <div className="font-semibold text-sm">Singles Top</div>
             
-          {singleList?.length == 0 ?
-             <div className="">Empty collection</div>
-          :
+
             <Singlelist 
               singleList={singleList}
               playSong={playSong}
             />
-          }
+
         </div>
 
 
@@ -140,6 +151,7 @@ export default function Playlist() {
             <Recent
               recent={recent}
               playSong={playSong}
+              formatDurationTwo={formatDurationTwo}
             />
            }
 
@@ -170,52 +182,59 @@ export default function Playlist() {
 
 
           {/* Third layer  note(border-[1px] border-[#553CDF]) */}
-          {
-            selected ?
-            <>
+ 
               <div className=" flex justify-start items-center gap-4  md:p-2 md:text-sm  md:flex md:flex-col md:justify-center md:items-center md:gap-7 md:rounded-[10px] md:w-[90%]">
 
               <div className="hidden md:block font-semibold text-md pt-5">Now Playing</div>
-              <div className="hidden md:bg-mirror md:rounded-[10px] md:shadow-boxshadow md:border-[1px] md:border-boderget md:flex justify-center items-center w-[60%]" >
-                <img src="/images/samplemain.png" alt="" />
-              </div>
+
+              { selected == null ?
+
+                <div className="">Empty collection</div>
               
-              <div className="hidden md:block">
-                  <Player 
-                    currentSong={selected?.uri} 
-                    name={selected?.songname}
-                    artist={selected?.artist}
-                    />
-              </div>
+               :
+
+               <>
+                <div className="hidden md:bg-mirror md:rounded-[10px] md:shadow-boxshadow md:border-[1px] md:border-boderget md:flex justify-center items-center w-[60%]" >
+                  <img src={selected?.imguri} alt="" />
+                </div>
+                
+                <div className="hidden md:block">
+                    <Player 
+                      currentSong={selected} 
+                      name={selected}
+                      artist={selected}
+                      setSongEnd={setSongEnd}
+                      />
+                </div>
 
 
-                {/* Mobile section */}
-                <span className="block md:hidden" >
-                  <Audio 
-                    song={selected?.uri}
-                    route={router?.pathname}
-                    setSongEnd={setSongEnd}
-                    />
-                </span>
-                <span className="flex justify-center items-center md:hidden" style={{background: 'linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)', backdropFilter : 'blur(20px)'}}>
-                    <img src="/images/samplemain.png" alt="image" className='w-[35px] p-[3px]' />
-                </span>
-                <div className="flex flex-col md:hidden">
-                    <span> {selected?.songname} </span>
-                    <span className='text-xs font-thin'> {selected?.artist} </span>
-                </div>              
+                  {/* Mobile section */}
+                  <span className="block md:hidden" >
+                    <Audio 
+                      song={selected?.uri}
+                      setSongEnd={setSongEnd}
+                      />
+                  </span>
+                  <span className="flex justify-center items-center md:hidden" style={{background: 'linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)', backdropFilter : 'blur(20px)'}}>
+                      <img src="/images/samplemain.png" alt="image" className='w-[35px] p-[3px]' />
+                  </span>
+                  <div className="flex flex-col md:hidden">
+                      <span> {selected?.songname} </span>
+                      <span className='text-xs font-thin'> {selected?.artist} </span>
+                  </div> 
+               </>
+
+              }
+             
 
             </div>   
 
             
             <div className="block md:hidden">
               {/* Right */}
-              {songend}
+              {formatDurationTwo(songend)}
             </div>
-           </>
-           :
-           <div className="hidden md:block md:h-[200px]">Empty</div>
-          }
+
             
 
       </div>

@@ -23,6 +23,8 @@ export default function Dashboard({user}) {
       manualChain,
       unfilteredAlbums,
       unFilteredsingle,
+      smallLoad,
+      setSmallLoad
     } = useContext(Contexts);
   const [owned, setOwned] = useState();
   const [ownedAlbums, setOwnedAlbums] = useState();
@@ -54,6 +56,7 @@ export default function Dashboard({user}) {
 
 
       //sell from the contract
+      setSmallLoad(true);
       if(type === "Album") {
 
         try {
@@ -61,7 +64,6 @@ export default function Dashboard({user}) {
           const Contract = await getContract();
           const setforsaleAlbum = await Contract.Albumforsale(index);
           await setforsaleAlbum.wait(); 
-
         } catch (error) {
           setNotify(true);
           setNotifyType("warn");
@@ -86,6 +88,7 @@ export default function Dashboard({user}) {
         setNotify(true);
         setNotifyType("success");
         setNotifyMsg("Asset listed for sale");
+        setSmallLoad(false);
   }
 
 

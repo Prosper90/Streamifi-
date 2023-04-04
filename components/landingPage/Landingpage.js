@@ -157,10 +157,8 @@ export default function Landingpage({users}) {
 
             <div className="text-[24px] font-semibold text-[#E81CFF] my-5 mb-8">NFT Collections</div>
 
-
-            <div className="relative flex flex-col p-5 md:p-0 md:flex-row justify-center items-center gap-5 h-auto md:h-auto">
               <Collections />
-            </div>
+ 
 
           </div>
 

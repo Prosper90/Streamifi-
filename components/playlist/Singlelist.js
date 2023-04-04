@@ -2,9 +2,12 @@ import React from 'react'
 
 export default function Singlelist({singleList,  playSong}) {
   return (
-    <div className="flex justify-start gap-4 items-center overflow-x-auto overflow-y-hidden w-[70%]">
+    <div className="flex gap-4 px-5 w-full md:w-full cursor-pointer h-[200px] flex-nowrap whitespace-nowrap overflow-hidden overflow-x-scroll scrollbar-hide items-center">
       { 
-        singleList?.map((data, index) => (
+        singleList?.length !== 0 ?
+        <>
+        {
+         singleList?.map((data, index) => (
           <div className="bg-transparent rounded-[5px] cursor-pointer" key={index} onClick={() => playSong(data)} >
           {/* Top */}
           <div className=" relative flex justify-center items-center rounded-[5px] p-2" style={{background: "linear-gradient(132.49deg, rgba(240, 235, 234, 0.25) 5.69%, rgba(255, 255, 255, 0.25) 5.69%, rgba(240, 235, 234, 0.24) 86.04%)", backdropFilter: 'blur(20px)'}}>
@@ -46,7 +49,14 @@ export default function Singlelist({singleList,  playSong}) {
             </div>
         </div>
         ))
+        
+       }
+        </>
 
+        :
+
+        <div className="">Empty collection</div>
+       
       }
     </div>
   )

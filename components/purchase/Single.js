@@ -27,7 +27,9 @@ export default function Single() {
           typeSelected,
           selectedSingle,
           tokenbalance,
-          manualChain
+          manualChain,
+          smallLoad,
+          setSmallLoad
         } = useContext(Contexts);
 
         const [reselect, setReselect] = useState();
@@ -67,6 +69,7 @@ export default function Single() {
       
         const purchase = async (data, index) => {
           const contract = await getContract();
+          setSmallLoad(true);
   
           let value = id.split(',');
           const idOne = parseInt(value[0]);
@@ -131,6 +134,7 @@ export default function Single() {
               setNotifyType("success");
               setNotifyMsg(`${address} bought an Album`);
               setOwns(true);
+              setSmallLoad(false);
         }
   
   
@@ -191,9 +195,7 @@ export default function Single() {
            { owns ?
             
             <Player 
-              currentSong={selectedSingle.uri}
-              name={selectedSingle.songname}
-              artist={selectedSingle.artist} 
+              currentSong={selectedSingle}
             />
 
             :

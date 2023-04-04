@@ -312,10 +312,6 @@ export default function Mint() {
         </div>
 
         <div className="w-full relative">
-          {
-            smallLoad && 
-            <Smallpreloader />
-           }
 
           <div className="m-3 text-center">Mint</div>
 

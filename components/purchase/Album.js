@@ -27,7 +27,9 @@ export default function Album() {
         selectedAlbum,
         setSelectedAlbum,
         tokenbalance,
-        manualChain
+        manualChain,
+        smallLoad,
+        setSmallLoad
       } = useContext(Contexts);
       const [reselect, setReselect] = useState();
       const [owns, setOwns] = useState(false);
@@ -70,6 +72,7 @@ export default function Album() {
     
       const purchase = async (data, index) => {
         const contract = await getContract();
+        setSmallLoad(true);
 
         console.log(index);
 
@@ -136,6 +139,7 @@ export default function Album() {
             setNotifyType("success");
             setNotifyMsg(`${address} bought an Album`);
             setOwns(true);
+            setSmallLoad(false);
       }
 
 
@@ -206,9 +210,7 @@ export default function Album() {
            { owns ?
             
             <Player 
-               currentSong={!reselect ? selectedAlbum.Albummarketplace[0].uri : reselect.uri} 
-               name={!reselect ? selectedAlbum.Albummarketplace[0].songname : reselect.songname}
-               artist={!reselect ? selectedAlbum.Albummarketplace[0].artist : reselect.artist}
+               currentSong={!reselect ? selectedAlbum.Albummarketplace[0] : reselect} 
                />
 
             :

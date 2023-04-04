@@ -1,15 +1,32 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react';
 
-export default function Recent({recent}) {
+
+
+
+export default function Recent({recent, playSong, formatDurationTwo}) {
+
+  const audioRef = useRef(null);
+  const [duration, setDuration] = useState(0);
+
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener('loadedmetadata', () => {
+        setDuration(audioRef.current.duration);
+      });
+    }
+  }, [recent]);
+
   return (
-    <div className="flex flex-col justify-center items-center overflow-x-hidden overflow-y-auto h-[150px]">
+    <div className="flex flex-col gap-3 justify-center items-center overflow-x-hidden overflow-y-auto h-[300px] w-[100%]">
       {
         recent.map((data, index) => (
           <div 
-            className="flex justify-between p-2 pr-8 rounded-[5px] items-center cursor-pointer" 
+            className="flex justify-between p-2 pr-8 rounded-[5px] items-center cursor-pointer w-full" 
             style={{background: "rgba(217, 217, 217, 0.11)"}}
             key={index} 
           >
+            <audio ref={audioRef} src={data.uri} hidden/>
             {/* Left */}
               <div className="flex justify-start items-center gap-4">
               <span>
@@ -40,7 +57,7 @@ export default function Recent({recent}) {
       
               {/* Right */}
               <div className="">
-              2:12
+               {formatDurationTwo(duration)}
               </div>
           </div>
         ))

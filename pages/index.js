@@ -2,11 +2,17 @@ import React, {useState, useEffect, useContext} from 'react';
 import Contexts from '../components/context/contextclass';
 import Landingpage from '../components/landingPage/Landingpage';
 import Notifiy from '../components/Notifier/Notifiy';
+import Smallpreloader from '../components/preloader/Smallpreloader';
 
 
 export default function Home({users}) { 
 
 
+    //context and states
+    const { 
+      smallLoad,
+      setSmallLoad
+    } = useContext(Contexts);
 
 
     useEffect(() => {
@@ -16,6 +22,10 @@ export default function Home({users}) {
 
   return (
     <>
+     {
+      smallLoad && 
+      <Smallpreloader />
+     }
      <Landingpage
       users={users}
      />

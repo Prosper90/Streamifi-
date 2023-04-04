@@ -1,10 +1,9 @@
 import React from "react";
 
-export default function Play(props) {
-  const { handleClick } = props;
+export default function Play({callPlay}) {
   
   return (
-    <div className="cursor-pointer" onClick={() => handleClick()} >
+    <div className="cursor-pointer" onClick={() => callPlay()} >
         <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
