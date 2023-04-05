@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Play({callPlay}) {
+export default function Playtwo({callPlay}) {
 
   return (
     <div className="cursor-pointer" onClick={() => callPlay(true)} >

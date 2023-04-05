@@ -3,7 +3,7 @@ import React from 'react'
 export default function Trendingsongs({users}) {
 
   return (
-    <div className="h-[300px] w-[100%] pt-[44px] px-5 overflow-y-scroll overflow-x-hidden flex flex-col gap-3 justify-center items-center">
+    <div className="h-[300px] w-[100%] pt-[70px] px-5 overflow-y-scroll overflow-x-hidden flex flex-col gap-3 justify-center items-start">
     {/* Map through starts */}
     {
       users.map((data, index) => {
@@ -19,7 +19,7 @@ export default function Trendingsongs({users}) {
                         </div>
                         </div>
                         <div className="flex flex-col justify-center flex-grow">
-                                <h2 className="block font-medium text-sm">{data.address}</h2>
+                                <h2 className="block font-medium text-sm truncate">{data.address}</h2>
                         <div className=" flex items-center pt-3 mt-1.5">
                         <div className="hidden sm:flex -space-x-1.5 ">Total Sold</div>
                         <div className="sm:ml-3.5">

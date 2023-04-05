@@ -18,7 +18,7 @@ export default function Recent({recent, playSong, formatDurationTwo}) {
   }, [recent]);
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center overflow-x-hidden overflow-y-auto h-[300px] w-[100%]">
+    <div className="flex flex-col gap-3 pt-10 justify-center items-start overflow-x-hidden overflow-y-auto h-[200px] w-[100%]">
       {
         recent.map((data, index) => (
           <div 

@@ -38,7 +38,7 @@ export default function Playlist() {
   const [songend, setSongEnd] = useState();
 
   //selected music
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState();
 
   //get contract instance
   const getContract = async () => {
@@ -96,9 +96,10 @@ export default function Playlist() {
   useEffect(() => {
 
       getowned();
+      console.log(selected?.uri, "changing uri")
 
 
-  }, [selected])
+  }, [])
 
   
 
@@ -187,7 +188,7 @@ export default function Playlist() {
 
               <div className="hidden md:block font-semibold text-md pt-5">Now Playing</div>
 
-              { selected == null ?
+              { !selected ?
 
                 <div className="">Empty collection</div>
               
