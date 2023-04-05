@@ -22,14 +22,9 @@ export default function Home({users}) {
 
   return (
     <>
-     {
-      smallLoad ?
-      <Smallpreloader />
-      :
-      <Landingpage
+     <Landingpage
       users={users}
      />
-     }
     </>
   )
 }

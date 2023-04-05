@@ -7,6 +7,7 @@ import Topinfo from '../infoheader/Topinfo';
 import { ethers } from 'ethers';
 import Notifiy from '../Notifier/Notifiy';
 import { chainBSC, chainPolygon, chainArbitrum } from '../utils/constants';
+import Smallpreloader from '../preloader/Smallpreloader';
 
 
 export default function Layout({children}) {
@@ -220,25 +221,33 @@ export default function Layout({children}) {
     :
 
       <div className='grid grid-cols-5 bg-home h-[100vh] w-full relative'>
+        
+        {
+          smallLoad ?
 
-        {/* Navigation left side */}
-        { pageWidth > 640 ?
-          <div className=" bg-topbg row-span-full col-span-1 h-full">
-            <Navigation />
-          </div>
-        :
-          <div className="fixed bottom-0 w-[100%] h-[45px] p-[10px]">
-            <Navigationmobile />
-          </div>
-        }
-
-
-        {/* Main page Right */}
-        <div className="col-span-full row-span-full sm:col-span-4 md:col-span-4 h-full overflow-y-scroll overflow-x-hidden">
-          <Topinfo />
-          {notify && <Notifiy />}
-          {children}
-        </div>
+             <Smallpreloader />
+       :
+        <>
+               {/* Navigation left side */}
+               { pageWidth > 640 ?
+                <div className=" bg-topbg row-span-full col-span-1 h-full">
+                  <Navigation />
+                </div>
+              :
+                <div className="fixed bottom-0 w-[100%] h-[45px] p-[10px]">
+                  <Navigationmobile />
+                </div>
+              }
+      
+      
+              {/* Main page Right */}
+              <div className="col-span-full row-span-full sm:col-span-4 md:col-span-4 h-full overflow-y-scroll overflow-x-hidden">
+                <Topinfo />
+                {notify && <Notifiy />}
+                {children}
+              </div>
+        </>
+       }
 
       </div>     
 
