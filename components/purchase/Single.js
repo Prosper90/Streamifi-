@@ -94,7 +94,8 @@ export default function Single() {
           } catch (error) {
             setNotify(true);
             setNotifyType("warn");
-            setNotifyMsg("Transaction cancelled");                 
+            setNotifyMsg("Transaction cancelled");
+            setSmallLoad(false);             
           }
 
   

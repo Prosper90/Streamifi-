@@ -67,7 +67,8 @@ export default function Dashboard({user}) {
         } catch (error) {
           setNotify(true);
           setNotifyType("warn");
-          setNotifyMsg("user cancelled transaction")          
+          setNotifyMsg("user cancelled transaction");
+          setSmallLoad(false);    
         }
           
       } else {
@@ -80,7 +81,8 @@ export default function Dashboard({user}) {
         } catch (error) {
           setNotify(true);
           setNotifyType("warn");
-          setNotifyMsg("user cancelled transaction")              
+          setNotifyMsg("user cancelled transaction")
+          setSmallLoad(false);           
         }
 
       }
