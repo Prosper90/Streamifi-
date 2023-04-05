@@ -23,12 +23,13 @@ export default function Home({users}) {
   return (
     <>
      {
-      smallLoad && 
+      smallLoad ?
       <Smallpreloader />
-     }
-     <Landingpage
+      :
+      <Landingpage
       users={users}
      />
+     }
     </>
   )
 }
