@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { shortenAddress } from '../utils/trauncate';
 import { useRouter } from 'next/router'
 import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../utils/constants';
+import Sideload from '../../components/preloader/Sideload';
 
 
 
@@ -29,7 +30,9 @@ export default function Album() {
         tokenbalance,
         manualChain,
         smallLoad,
-        setSmallLoad
+        setSmallLoad,
+        sideload,
+        setSideLoad,
       } = useContext(Contexts);
       const [reselect, setReselect] = useState();
       const [owns, setOwns] = useState(false);
@@ -59,7 +62,7 @@ export default function Album() {
           const idOne = parseInt(value[0]);
           const idTwo = parseInt(value[1]);
 
-          const owner = await contract.ownerOf(idOne, idTwo);
+          const owner = await contract.ownerOfAsset(idOne, idTwo);
           console.log(owner, "checking owner");
           setSeller(owner);
 
@@ -72,7 +75,7 @@ export default function Album() {
     
       const purchase = async (data, index) => {
         const contract = await getContract();
-        setSmallLoad(true);
+        setSideLoad(true);
 
         console.log(index);
 
@@ -100,7 +103,7 @@ export default function Album() {
           setNotify(true);
           setNotifyType("warn");
           setNotifyMsg("Transaction cancelled");
-          setSmallLoad(false);      
+          setSideLoad(false);      
         }
 
 
@@ -140,7 +143,7 @@ export default function Album() {
             setNotifyType("success");
             setNotifyMsg(`${address} bought an Album`);
             setOwns(true);
-            setSmallLoad(false);
+            setSideLoad(false);
       }
 
 
@@ -192,9 +195,16 @@ export default function Album() {
 
 
   return (
-    <div className='grid grid-rows-2 gap-4 p-8 text-white' >
+    <div className={`grid grid-rows-2 gap-4 p-8 text-white ${sideload && "opacity-25"}`} >
       {/* Top */}
       <div className= {`relative bg-[#000] w-[100%] p-5 ${!owns ? "md:grid md:grid-cols-3 gap-3" : 'md:grid md:grid-cols-3 gap-3' } rounded-[5px] text-xs`}>
+
+
+         {
+            sideload && 
+            <Sideload  />
+          }
+
 
         {/* For mobile */}
         <div className=" absolute w-[80px] text-center text-[#00ff00] right-3 border-2 border-[#00FF00] rounded-[15px] p-2 font-light cursor-pointer md:hidden"

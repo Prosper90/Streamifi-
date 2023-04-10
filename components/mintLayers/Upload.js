@@ -12,7 +12,8 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
       setNotify, 
       setNotifyType,
       setNotifyMsg,
-      setSmallLoad
+      setSmallLoad,
+      setSideLoad
     } = useContext(Contexts);
 
 
@@ -103,7 +104,7 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
 
   const upload = async (e) => {
     e.preventDefault();
-    setSmallLoad(true);
+    setSideLoad(true);
 
     const formdata = new FormData();
 
@@ -137,6 +138,7 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
     if(gotten.completed) {
       setUploaded(true);
       setAddupload(false);
+      setSideLoad(false);
       if(selected === "Album") {
         setAlbumImg(`${gotten.path}${imgCover}`)
         setAlbumSongs(`${gotten.path}`)
@@ -144,7 +146,6 @@ export default function Upload({ selected, setProgress, setUploaded, setSingleIm
         setSingleImg(`${gotten.path}${imgCover}`);
         setSingleSongs(`${gotten.path}`)
       }
-      setSmallLoad(false);
       //notification
       setNotify(true);
       setNotifyType("success")

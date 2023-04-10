@@ -3,7 +3,7 @@ import React from 'react'
 export default function Albumlist({albumList, playSong}) {
 
   return (
-    <div className="flex justify-start gap-4 items-center overflow-hidden overflow-x-auto w-[600px] cursor-pointer h-[200px]">
+    <div className="flex gap-4 px-5 w-full md:w-full cursor-pointer h-[200px] flex-nowrap whitespace-nowrap overflow-hidden overflow-x-scroll scrollbar-hide items-center">
       { 
       albumList?.length !== 0 ?
        <>

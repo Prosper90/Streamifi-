@@ -7,6 +7,7 @@ import Select from '../../components/mintLayers/Select';
 import Upload from '../../components/mintLayers/Upload';
 import Forms from '../../components/mintLayers/Forms';
 import Smallpreloader from '../../components/preloader/Smallpreloader';
+import Sideload from '../../components/preloader/Sideload';
 
 
 
@@ -24,8 +25,8 @@ export default function Mint() {
       setNotifyMsg,
       userData,
       manualChain,
-      smallLoad,
-      setSmallLoad
+      sideload,
+      setSideLoad,
     } = useContext(Contexts);
       const [bnblife, setBnblive] = useState();
       const [inputdataone, setInputdataone] = useState("0");
@@ -98,11 +99,15 @@ export default function Mint() {
   
 
           try {
-            setSmallLoad(true);
+            setSideLoad(true);
             const Contract = await getContract();
-            const addSingle = await Contract.addSingle(copies, songName, artist, musiuri, imageuri, reformat);
+            const addSingle = await Contract.addSingle(copies, songName, artist, musiuri, imageuri, reformat, {
+              gasLimit: 10000000,
+              nonce: 105 || undefined,
+            });
             await addSingle.wait();
-            setSmallLoad(false);
+            setProgress('home');
+            setSideLoad(false);
           } catch (error) {
             setNotify(true);
             setNotifyType("warn");
@@ -197,11 +202,15 @@ export default function Mint() {
           }
           
           try {
-            setSmallLoad(true);
+            setSideLoad(true);
             const Contract = await getContract();
-            const mintAlbum = await Contract.addAlbum( copies, songput, artistput, musiuris, imageuri, reformat );
+            const mintAlbum = await Contract.addAlbum( copies, songput, artistput, musiuris, imageuri, reformat,{
+              gasLimit: 10000000,
+              nonce: 105 || undefined,
+            });
             await mintAlbum.wait();
-            setSmallLoad(false);          
+            setProgress('home');
+            setSideLoad(false);          
           } catch (error) {
             setNotify(true);
             setNotifyType("warn");
@@ -305,13 +314,18 @@ export default function Mint() {
       
 
   return (
-    <div className='h-full text-[#fff]'>
+    <div className={`h-full text-[#fff] ${sideload && "opacity-25"}`}>
 
         <div className="w-full">
            <img src="/images/mintimage.png" alt="mintImage" />
         </div>
 
-        <div className="w-full relative">
+        <div className={`w-full relative`}>
+
+          {
+            sideload && 
+            <Sideload  />
+          }
 
           <div className="m-3 text-center">Mint</div>
 

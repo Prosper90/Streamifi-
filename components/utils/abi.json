@@ -236,7 +236,7 @@
         "type": "address"
       }
     ],
-    "name": "balanceOf",
+    "name": "balanceOfM",
     "outputs": [
       {
         "internalType": "uint256",
@@ -745,7 +745,7 @@
   },
   {
     "inputs": [],
-    "name": "name",
+    "name": "nameM",
     "outputs": [
       {
         "internalType": "string",
@@ -800,7 +800,7 @@
         "type": "uint256"
       }
     ],
-    "name": "ownerOf",
+    "name": "ownerOfAsset",
     "outputs": [
       {
         "internalType": "address",
@@ -897,7 +897,7 @@
   },
   {
     "inputs": [],
-    "name": "symbol",
+    "name": "symbolM",
     "outputs": [
       {
         "internalType": "string",

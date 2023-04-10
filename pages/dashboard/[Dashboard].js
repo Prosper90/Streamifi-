@@ -2,6 +2,7 @@ import React,{useState, useEffect, useContext} from 'react';
 import Contexts from '../../components/context/contextclass';
 import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../../components/utils/constants';
 import { ethers } from 'ethers';
+import Sideload from '../../components/preloader/Sideload';
 
 export default function Dashboard({user}) {
 
@@ -24,7 +25,9 @@ export default function Dashboard({user}) {
       unfilteredAlbums,
       unFilteredsingle,
       smallLoad,
-      setSmallLoad
+      setSmallLoad,
+      sideload,
+      setSideLoad,
     } = useContext(Contexts);
   const [owned, setOwned] = useState();
   const [ownedAlbums, setOwnedAlbums] = useState();
@@ -42,8 +45,8 @@ export default function Dashboard({user}) {
   const getowned = async () => {
     const contract = await getContract();
     const owneddatas = await contract.owns(address);
-    var arrAlbum =  unfilteredAlbums.filter((item) => owneddatas.album.includes(item.Albummarketplace[0].id)) ;
-    var arrSingle = unFilteredsingle.filter(({id}) => owneddatas.single.includes(id));
+    var arrAlbum =  unfilteredAlbums?.filter((item) => owneddatas.album.includes(item.Albummarketplace[0].id)) ;
+    var arrSingle = unFilteredsingle?.filter(({id}) => owneddatas.single.includes(id));
 
     setOwned(owneddatas);
     setOwnedAlbums(arrAlbum);
@@ -56,7 +59,7 @@ export default function Dashboard({user}) {
 
 
       //sell from the contract
-      setSmallLoad(true);
+      setSideLoad(true);
       if(type === "Album") {
 
         try {
@@ -68,7 +71,7 @@ export default function Dashboard({user}) {
           setNotify(true);
           setNotifyType("warn");
           setNotifyMsg("user cancelled transaction");
-          setSmallLoad(false);    
+          setSideLoad(false);    
         }
           
       } else {
@@ -82,7 +85,7 @@ export default function Dashboard({user}) {
           setNotify(true);
           setNotifyType("warn");
           setNotifyMsg("user cancelled transaction")
-          setSmallLoad(false);           
+          setSideLoad(false);           
         }
 
       }
@@ -90,7 +93,7 @@ export default function Dashboard({user}) {
         setNotify(true);
         setNotifyType("success");
         setNotifyMsg("Asset listed for sale");
-        setSmallLoad(false);
+        setSideLoad(false);
   }
 
 
@@ -104,7 +107,13 @@ export default function Dashboard({user}) {
   
 
   return (
-    <div className=' text-white font-sm w-full grid md:grid-cols-3 p-8'>
+    <div className={`text-white font-sm w-full grid md:grid-cols-3 p-8 ${sideload && " relative opacity-25"}`}>
+
+
+         {
+            sideload && 
+            <Sideload  />
+          }
 
 
       {/* Left */}

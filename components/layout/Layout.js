@@ -37,6 +37,7 @@ export default function Layout({children}) {
     const [chainChanged, setChainchanged] = useState(false);
     //preloaders
     const[smallLoad, setSmallLoad] = useState(false);
+    const [sideload, setSideLoad] = useState(false);
     //market data
     const [albums, setAlbums] = useState();
     const [single, setSingle] = useState();
@@ -202,6 +203,8 @@ export default function Layout({children}) {
     //preloaders
     smallLoad,
     setSmallLoad,
+    sideload,
+    setSideLoad,
     //market data
     albums,
     setAlbums,
