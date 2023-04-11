@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import  Audio  from '../../components/playlistAudio/Audio';
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
-import { useRouter } from 'next/router';
 
 
 export default function Playlist() {
