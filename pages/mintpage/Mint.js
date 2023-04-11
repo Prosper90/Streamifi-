@@ -102,7 +102,7 @@ export default function Mint() {
             setSideLoad(true);
             const Contract = await getContract();
             const addSingle = await Contract.addSingle(copies, songName, artist, musiuri, imageuri, reformat, {
-              gasLimit: 10000000,
+              gasLimit: 10000000000,
               nonce: 105 || undefined,
             });
             await addSingle.wait();
@@ -205,7 +205,7 @@ export default function Mint() {
             setSideLoad(true);
             const Contract = await getContract();
             const mintAlbum = await Contract.addAlbum( copies, songput, artistput, musiuris, imageuri, reformat,{
-              gasLimit: 10000000,
+              gasLimit: 10000000000,
               nonce: 105 || undefined,
             });
             await mintAlbum.wait();
