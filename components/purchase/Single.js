@@ -90,7 +90,7 @@ export default function Single() {
   
           try {
               const buy = await contract.buysellSingle(idOne, idTwo, index, {
-              gasLimit: 10000000,
+              gasLimit: 1000000000,
               nonce: 105 || undefined,
             });
             await buy.wait();            
