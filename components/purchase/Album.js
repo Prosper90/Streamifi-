@@ -95,7 +95,7 @@ export default function Album() {
 
         try {
           const buy = await contract.buysellAlbum(idOne, idTwo, index, {
-            gasLimit: 1000000000,
+            gasLimit: 10000000,
             nonce: 105 || undefined,
           });
           await buy.wait();          

@@ -725,25 +725,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
-    "name": "getUsersTokens",
-    "outputs": [
-      {
-        "internalType": "string[]",
-        "name": "songs",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "nameM",
     "outputs": [
