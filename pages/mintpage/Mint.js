@@ -308,6 +308,15 @@ export default function Mint() {
 
       useEffect(() => {
 
+
+        if(!address){
+          setNotify(true);
+          setNotifyType("warn")
+          setNotifyMsg("Expired connect your wallet to proceed");
+          
+          router.push('/');
+        }
+        
         getPrice();
 
       }, [manualChain])

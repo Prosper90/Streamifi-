@@ -11,6 +11,7 @@ export default function Marketplace() {
 
 //context info
 const {
+  address,
   manualChain,
   albums,
   single,
@@ -21,6 +22,15 @@ const {
 
 
 useEffect(() => {
+
+  if(!address){
+    setNotify(true);
+    setNotifyType("warn")
+    setNotifyMsg("Expired connect your wallet to proceed");
+    
+    router.push('/');
+  }
+
    console.log(single);
 }, [manualChain])
 

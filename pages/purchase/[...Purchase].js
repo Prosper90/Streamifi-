@@ -26,6 +26,14 @@ export default function Purchase() {
 
       useEffect(() => {
 
+        if(!address){
+          setNotify(true);
+          setNotifyType("warn")
+          setNotifyMsg("Expired connect your wallet to proceed");
+          
+          router.push('/');
+        }
+
       }, [manualChain])
       
   

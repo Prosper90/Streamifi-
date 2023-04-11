@@ -95,6 +95,14 @@ export default function Playlist() {
 
   useEffect(() => {
 
+    if(!address){
+      setNotify(true);
+      setNotifyType("warn")
+      setNotifyMsg("Expired connect your wallet to proceed");
+      
+      router.push('/');
+    }
+
       getowned();
       console.log(selected?.uri, "changing uri")
 
