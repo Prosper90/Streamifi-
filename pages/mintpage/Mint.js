@@ -8,6 +8,7 @@ import Upload from '../../components/mintLayers/Upload';
 import Forms from '../../components/mintLayers/Forms';
 import Smallpreloader from '../../components/preloader/Smallpreloader';
 import Sideload from '../../components/preloader/Sideload';
+import { useRouter } from 'next/router';
 
 
 
@@ -28,6 +29,8 @@ export default function Mint() {
       sideload,
       setSideLoad,
     } = useContext(Contexts);
+    //router
+    const router = useRouter();
       const [bnblife, setBnblive] = useState();
       const [inputdataone, setInputdataone] = useState("0");
       const [inputdatatwo, setInputdatatwo] = useState("0");
@@ -316,7 +319,7 @@ export default function Mint() {
           
           router.push('/');
         }
-        
+
         getPrice();
 
       }, [manualChain])

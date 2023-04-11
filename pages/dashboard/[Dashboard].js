@@ -3,6 +3,7 @@ import Contexts from '../../components/context/contextclass';
 import { ContractAddress, contractABI, chainBSC, chainPolygon } from '../../components/utils/constants';
 import { ethers } from 'ethers';
 import Sideload from '../../components/preloader/Sideload';
+import { useRouter } from 'next/router';
 
 export default function Dashboard({user}) {
 
@@ -29,6 +30,8 @@ export default function Dashboard({user}) {
       sideload,
       setSideLoad,
     } = useContext(Contexts);
+  //router
+  const router = useRouter();  
   const [owned, setOwned] = useState();
   const [ownedAlbums, setOwnedAlbums] = useState();
   const [ownedSingles, setOwnedSingles] = useState();

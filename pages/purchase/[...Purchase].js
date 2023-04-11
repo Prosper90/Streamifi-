@@ -3,6 +3,7 @@ import Album from '../../components/purchase/Album';
 import Single from '../../components/purchase/Single';
 import Contexts from '../../components/context/contextclass';
 import { ethers } from 'ethers';
+import { useRouter } from 'next/router';
 
 export default function Purchase() {
   
@@ -21,7 +22,8 @@ export default function Purchase() {
         setTypeSelected,
         manualChain
       } = useContext(Contexts);
-
+      //router
+      const router = useRouter();
 
 
       useEffect(() => {

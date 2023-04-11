@@ -5,6 +5,7 @@ import { ContractAddress, contractABI, chainID } from '../../components/utils/co
 import { ethers } from 'ethers';
 import Contexts from '../../components/context/contextclass';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function Marketplace() {
 
@@ -15,10 +16,14 @@ const {
   manualChain,
   albums,
   single,
+  setNotify, 
+  setNotifyType,
+  setNotifyMsg,
 } = useContext(Contexts);
 
 /* global BigInt */
-
+//router
+const router = useRouter();
 
 
 useEffect(() => {
