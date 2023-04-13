@@ -111,6 +111,7 @@ export default function Album() {
 
         //backend route https://streamifibackend.fly.dev/
         //update seller
+        /*
         const valueAmount = (costset/bnblife) * 1;
         const updateSeller = await fetch(`https://streamifibackend.fly.dev/user/sold/${seller}`, 
             {
@@ -136,7 +137,19 @@ export default function Album() {
         });
         
         await updateBuyer.json();
+        */
 
+  
+        const valueAmount = (costset/bnblife) * 1;
+        const updateSeller = await fetch(`https://streamifibackend.fly.dev/user/updatetx/${address}`, 
+            {
+            method: 'POST',   
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: valueAmount, musicType: "Album", seller: seller  })
+        });
 
             //notifications
             setNotify(true);
