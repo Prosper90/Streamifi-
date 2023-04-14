@@ -273,9 +273,9 @@ export default function Landingpage({users}) {
 
 
       {/* Section Eight */}
-      <div className="relative bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh] pb-[336px] md:h-[100%]">
+      <div className="bg-[#0C0F16] flex justify-center items-center z-[99999] h-[100dvh]  md:h-[100%]">
 
-        <div className="  p-8 absolute md:mt-[250px] bg-[url('/images/SOCIALS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center gap-10 flex-wrap w-full">
+        <div className="  p-8 md:mt-[202px] bg-[url('/images/SOCIALS.png')] bg-no-repeat bg-top bg-contain md:bg-auto flex justify-center items-center gap-10 flex-wrap w-full">
  
            <div className=" w-[223px] p-5 shadow-lg shadow-[#000] rounded-xl flex flex-col justify-center items-center gap-3">
               <div className="flex justify-center items-center">

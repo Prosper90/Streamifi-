@@ -3,7 +3,7 @@ import React from 'react'
 export default function Trendingsongs({users}) {
 
   return (
-    <div className="h-[300px] w-[100%] pt-[70px] px-5 overflow-y-scroll overflow-x-hidden flex flex-col gap-3 justify-center items-start">
+    <div className="h-[300px] w-[100%] pt-[208px] px-5 overflow-y-scroll overflow-x-hidden flex flex-col gap-3 justify-center items-start">
     {/* Map through starts */}
     {
       users.map((data, index) => {
