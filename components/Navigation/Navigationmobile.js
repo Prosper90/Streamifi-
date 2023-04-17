@@ -8,7 +8,7 @@ export default function Navigationmobile() {
     const {pages, setPages, address} = useContext(Contexts);
 
   return (
-    <div className='flex justify-around w-full text-white'>
+    <div className='flex justify-around w-full text-white z-[999999999999999999]'>
 
         <Link href="/">
           <div className="">
