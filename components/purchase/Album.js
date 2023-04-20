@@ -150,6 +150,8 @@ export default function Album() {
             },
             body: JSON.stringify({ amount: valueAmount, musicType: "Album", seller: seller  })
         });
+          
+           if(updateSeller){
 
             //notifications
             setNotify(true);
@@ -157,6 +159,9 @@ export default function Album() {
             setNotifyMsg(`${address} bought an Album`);
             setOwns(true);
             setSideLoad(false);
+
+           }
+
       }
 
 

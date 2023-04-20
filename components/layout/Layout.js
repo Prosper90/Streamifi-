@@ -237,7 +237,7 @@ export default function Layout({children}) {
                   <Navigation />
                 </div>
               :
-                <div className="fixed bottom-0 w-[100%] h-[45px] p-[10px]">
+                <div className="fixed bottom-0 w-[100%] h-[45px] p-[10px] z-[999999]">
                   <Navigationmobile />
                 </div>
               }

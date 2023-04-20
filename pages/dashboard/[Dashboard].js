@@ -201,7 +201,7 @@ export default function Dashboard({user}) {
 
 
          {/* Second layer */}
-         <div className="flex flex-col justify-start items-center gap-10 md:flex-row md:justify-start">
+         <div className="flex flex-col justify-start items-start gap-10 md:flex-row md:justify-start md:items-center">
 
           {/* Left */}
           <div className="">
@@ -269,7 +269,7 @@ export default function Dashboard({user}) {
             <div className="mb-5">Single Unlisted</div>
           
             {/* Left here scrolls */}
-            <div className="flex flex-col gap-7 overflow-y-scroll overflow-x-hidden h-[158px]">
+            <div className="flex flex-col gap-7 overflow-y-scroll overflow-x-hidden h-[300px]">
                 
                 {/* Items */}
                { ownedSingles?.length == 0
