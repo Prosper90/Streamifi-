@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { shortenAddress } from '../utils/trauncate';
 
 export default function Trendingsongs({users}) {
 
@@ -18,8 +19,8 @@ export default function Trendingsongs({users}) {
                             <img src="https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500" className="object-cover w-full h-full" alt="nc-imgs" />
                         </div>
                         </div>
-                        <div className="flex flex-col justify-center flex-grow">
-                                <h2 className="block font-medium text-sm truncate">{data.address}</h2>
+                        <div className="flex flex-col justify-center flex-grow w-[200px]">
+                                <h2 className="block font-medium text-sm truncate ... ">{data.address}</h2>
                         <div className=" flex items-center pt-3 mt-1.5">
                         <div className="hidden sm:flex -space-x-1.5 ">Total Sold</div>
                         <div className="sm:ml-3.5">

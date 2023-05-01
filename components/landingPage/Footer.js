@@ -9,8 +9,8 @@ export default function Footer() {
 
 
       <div className="flex flex-col gap-2">
-        <div className="mb-2">
-            <Image height={30} width={300} src="/images/logo.svg" alt="logo" />
+        <div className="mb-2 flex items-end gap-[2px]">
+            <Image height={30} width={50} src="/images/logo.svg" alt="logo" /><span className='text-lg font-bold'>Streamifi</span>
         </div>
         <div className="w-[70%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, consequuntur.</div>
       </div>

@@ -197,8 +197,8 @@ export default function Header() {
   return (
     <div className='relative p-5 md:p-10 flex justify-between items-center text-white text-sm'>
 
-        <div className="">
-            <Image height={30} width={200} src="/images/logo.svg" alt="logo" />
+        <div className="flex justify-end items-center gap-[2px]">
+            <Image height={30} width={50} src="/images/logo.svg" alt="logo" /><span className='text-lg font-bold'>Streamifi</span>
         </div>
           
         {/* Right */}
